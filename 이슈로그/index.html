@@ -56,6 +56,7 @@
   }
   .group-tabs button:hover { border-color: var(--primary); color: var(--ink); }
   .group-tabs button.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .group-tabs button .count { opacity: 0.6; font-variant-numeric: tabular-nums; }
 
   /* ---- search ---- */
   .search-input {
@@ -129,11 +130,11 @@
     <p class="tagline">수업·저장소를 만들고 운영하며 겪은 문제와 해결 방법을 남깁니다. 같은 문제를 반복해서 조사하지 않는 것이 목표입니다.</p>
 
     <nav class="group-tabs" id="group-tabs">
-      <button data-cat="all" class="active">전체</button>
-      <button data-cat="github-pages">GitHub Pages</button>
-      <button data-cat="html-encoding">HTML · 인코딩</button>
-      <button data-cat="security">보안 · Git</button>
-      <button data-cat="supabase-auth">Supabase · Auth</button>
+      <button data-cat="all" class="active"><span class="label">전체</span> <span class="count"></span></button>
+      <button data-cat="github-pages"><span class="label">GitHub Pages</span> <span class="count"></span></button>
+      <button data-cat="html-encoding"><span class="label">HTML · 인코딩</span> <span class="count"></span></button>
+      <button data-cat="security"><span class="label">보안 · Git</span> <span class="count"></span></button>
+      <button data-cat="supabase-auth"><span class="label">Supabase · Auth</span> <span class="count"></span></button>
     </nav>
 
     <label class="search-input">
@@ -193,6 +194,12 @@
     const resultCount = document.getElementById('result-count');
     const emptyNote = document.getElementById('empty-note');
     let activeCat = 'all';
+
+    tabs.forEach(tab => {
+      const cat = tab.dataset.cat;
+      const n = cat === 'all' ? cards.length : [...cards].filter(c => c.dataset.cat === cat).length;
+      tab.querySelector('.count').textContent = `(${n})`;
+    });
 
     function applyFilters() {
       const q = searchInput.value.trim().toLowerCase();
