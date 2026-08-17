@@ -49,7 +49,7 @@
 
   /* ---- grid ---- */
   main { flex: 1 1 auto; display: flex; align-items: center; padding: 8px 24px; }
-  .grid { max-width: 860px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid { max-width: 1040px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
   a.card {
     display: flex; flex-direction: column; justify-content: space-between; min-height: 128px;
     background: var(--canvas); border: 1px solid var(--hairline);
@@ -78,7 +78,10 @@
   footer.site-footer a:hover { color: var(--ink); }
   footer.site-footer .sep { color: var(--hairline); margin: 0 8px; }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 380px) {
@@ -146,6 +149,11 @@
         <h2>이슈 로그</h2>
         <span class="status ready"><span class="dot"></span>4건 기록</span>
       </a>
+      <a class="card" href="팁/index.html">
+        <span class="num">TIP</span>
+        <h2>팁</h2>
+        <span class="status ready"><span class="dot"></span>4건 기록</span>
+      </a>
     </div>
   </main>
 
@@ -153,6 +161,8 @@
     <a href="index.html">class-html-2608</a>
     <span class="sep">·</span>
     <a href="이슈로그/index.html">이슈 로그</a>
+    <span class="sep">·</span>
+    <a href="팁/index.html">팁</a>
     <span class="sep">·</span>
     <span>frontierall</span>
   </footer>

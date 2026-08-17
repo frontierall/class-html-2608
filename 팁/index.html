@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이슈 로그 · class-html-2608</title>
+<title>팁 · class-html-2608</title>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/static/pretendard.css">
 <style>
   :root {
@@ -46,7 +46,6 @@
   h1.headline { font-size: 40px; font-weight: 600; line-height: 1.10; letter-spacing: 0; margin: 0 0 14px; }
   p.tagline { font-size: 22px; font-weight: 400; line-height: 1.3; letter-spacing: 0.196px; margin: 0 0 28px; color: var(--ink-80); }
 
-  /* ---- group tabs ---- */
   .group-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 16px; scrollbar-width: none; }
   .group-tabs::-webkit-scrollbar { display: none; }
   .group-tabs button {
@@ -58,7 +57,6 @@
   .group-tabs button.active { background: var(--primary); border-color: var(--primary); color: #fff; }
   .group-tabs button .count { opacity: 0.6; font-variant-numeric: tabular-nums; }
 
-  /* ---- search ---- */
   .search-input {
     display: flex; align-items: center; gap: 8px; background: var(--canvas);
     border: 1px solid var(--hairline); border-radius: 9999px; padding: 10px 18px;
@@ -89,7 +87,7 @@
   a.utility-card .meta { font-size: 14px; color: var(--ink-48); letter-spacing: -0.224px; }
   a.utility-card .project {
     display: inline-block; font-size: 11px; color: var(--ink-48); letter-spacing: -0.12px;
-    background: var(--pearl); border: 1px solid var(--hairline); padding: 2px 8px;
+    background: var(--parchment); border: 1px solid var(--hairline); padding: 2px 8px;
     border-radius: 999px; margin-top: 10px;
   }
   .empty-note { font-size: 14px; color: var(--ink-48); letter-spacing: -0.224px; padding: 24px 0; }
@@ -120,57 +118,57 @@
     <span class="meta">인공지능 심화(160H)</span>
   </nav>
   <nav class="sub-nav">
-    <a class="category" href="#">이슈 로그</a>
+    <a class="category" href="#">팁</a>
     <a class="btn-primary" href="../index.html">전체 커리큘럼</a>
   </nav>
 
   <main class="content">
-    <span class="eyebrow">저장소 운영 기록</span>
-    <h1 class="headline">이슈 로그</h1>
-    <p class="tagline">수업·저장소를 만들고 운영하며 겪은 문제와 해결 방법을 남깁니다. 같은 문제를 반복해서 조사하지 않는 것이 목표입니다.</p>
+    <span class="eyebrow">작업 노하우 기록</span>
+    <h1 class="headline">팁</h1>
+    <p class="tagline">Claude Code·Codex로 작업하며 정리한 실전 팁을 모읍니다. 같은 시행착오를 반복하지 않는 것이 목표입니다.</p>
 
     <nav class="group-tabs" id="group-tabs">
       <button data-cat="all" class="active"><span class="label">전체</span> <span class="count"></span></button>
-      <button data-cat="github-pages"><span class="label">GitHub Pages</span> <span class="count"></span></button>
-      <button data-cat="html-encoding"><span class="label">HTML · 인코딩</span> <span class="count"></span></button>
-      <button data-cat="security"><span class="label">보안 · Git</span> <span class="count"></span></button>
-      <button data-cat="supabase-auth"><span class="label">Supabase · Auth</span> <span class="count"></span></button>
+      <button data-cat="claude-memory"><span class="label">Claude · 설정</span> <span class="count"></span></button>
+      <button data-cat="notion-mcp"><span class="label">Notion MCP</span> <span class="count"></span></button>
+      <button data-cat="subagent"><span class="label">서브에이전트</span> <span class="count"></span></button>
+      <button data-cat="script-pipeline"><span class="label">스크립트 파이프라인</span> <span class="count"></span></button>
     </nav>
 
     <label class="search-input">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="search" id="search" placeholder="제목, 프로젝트, 키워드로 검색">
+      <input type="search" id="search" placeholder="제목, 키워드로 검색">
     </label>
 
-    <p class="result-count" id="result-count">4개 이슈</p>
+    <p class="result-count" id="result-count">4개 팁</p>
 
     <div class="utility-grid" id="grid">
-      <a class="utility-card" data-cat="supabase-auth" href="google-provider-not-enabled/index.html">
-        <span class="tag">Supabase · Auth</span>
-        <div class="name">Google 로그인 "provider is not enabled"</div>
-        <div class="meta">Supabase Google Provider 미활성화</div>
-        <span class="project">ClassShelf-codex-2608</span>
+      <a class="utility-card" data-cat="claude-memory" href="claude-memory-protected-zone/index.html">
+        <span class="tag">Claude · 설정</span>
+        <div class="name">보호 구역 프로젝트에서 "항상 이렇게 해줘"를 시키는 법</div>
+        <div class="meta">memory 시스템으로 규칙을 저장해 업데이트에 영향받지 않게 하기</div>
+        <span class="project">08_autoworker02</span>
       </a>
-      <a class="utility-card" data-cat="github-pages" href="github-pages-private-repo/index.html">
-        <span class="tag">GitHub Pages</span>
-        <div class="name">GitHub Pages가 Private 저장소에서 동작하지 않음</div>
-        <div class="meta">Public 전환 후 Pages 활성화로 해결</div>
-        <span class="project">class-html-2608</span>
+      <a class="utility-card" data-cat="notion-mcp" href="notion-mcp/index.html">
+        <span class="tag">Notion MCP</span>
+        <div class="name">Notion MCP 연동 실전 팁</div>
+        <div class="meta">DB 생성 DDL, 뷰 추가, data_source_id 형식, 코드 블록</div>
+        <span class="project">08_autoworker02</span>
       </a>
-      <a class="utility-card" data-cat="html-encoding" href="html-encoding-mojibake/index.html">
-        <span class="tag">HTML · 인코딩</span>
-        <div class="name">교안 HTML에 문서 구조가 없어 한글이 깨짐</div>
-        <div class="meta">DOCTYPE·charset 없는 조각 HTML → 완전한 문서로 재작성</div>
-        <span class="project">class-html-2608</span>
+      <a class="utility-card" data-cat="subagent" href="subagent-task/index.html">
+        <span class="tag">서브에이전트</span>
+        <div class="name">서브에이전트(Task) 활용 팁</div>
+        <div class="meta">Write 가드 우회, 병렬 실행과 결과 확인</div>
+        <span class="project">08_autoworker02</span>
       </a>
-      <a class="utility-card" data-cat="security" href="sensitive-screenshot-exposure/index.html">
-        <span class="tag">보안 · Git</span>
-        <div class="name">교안 폴더에 민감한 원본 스크린샷이 함께 있을 위험</div>
-        <div class="meta">이미지 블러 확인 + .gitignore 제외</div>
-        <span class="project">class-html-2608</span>
+      <a class="utility-card" data-cat="script-pipeline" href="script-pipeline/index.html">
+        <span class="tag">스크립트 파이프라인</span>
+        <div class="name">대본 파이프라인(script-pd) 관련 팁</div>
+        <div class="meta">댓글 없는 영상 처리, 분량 보충, URL 물음표 이스케이프</div>
+        <span class="project">08_autoworker02</span>
       </a>
     </div>
-    <p class="empty-note" id="empty-note" style="display:none;">일치하는 이슈가 없습니다.</p>
+    <p class="empty-note" id="empty-note" style="display:none;">일치하는 팁이 없습니다.</p>
   </main>
 
   <footer class="site-footer">
@@ -183,7 +181,7 @@
       <a href="../06_데이터ML/index.html">06 데이터ML</a>
       <a href="../07_LLM_RAG_Agent/index.html">07 LLM_RAG_Agent</a>
       <a href="../08_해커톤/index.html">08 해커톤</a>
-      <a href="../팁/index.html">팁</a>
+      <a href="../이슈로그/index.html">이슈로그</a>
     </div>
     <div class="footer-legal">class-html-2608 · frontierall</div>
   </footer>
@@ -213,7 +211,7 @@
         card.classList.toggle('hidden', !show);
         if (show) visible++;
       });
-      resultCount.textContent = `${visible}개 이슈`;
+      resultCount.textContent = `${visible}개 팁`;
       emptyNote.style.display = visible === 0 ? 'block' : 'none';
     }
 

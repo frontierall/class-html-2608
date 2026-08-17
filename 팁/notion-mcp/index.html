@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notion MCP 연동 실전 팁 · class-html-2608</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root {
+    --primary: #0066cc; --primary-focus: #0071e3;
+    --canvas: #ffffff; --parchment: #f5f5f7; --pearl: #fafafc;
+    --black: #000000; --ink: #1d1d1f; --ink-80: #333333; --ink-48: #7a7a7a;
+    --hairline: #e0e0e0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--canvas); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px; line-height: 1.47; letter-spacing: -0.374px;
+  }
+  .global-nav {
+    position: sticky; top: 0; z-index: 20; height: 44px; background: var(--black);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+  }
+  .global-nav .brand { color: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.12px; text-decoration: none; }
+  .global-nav .meta { color: rgba(255,255,255,0.72); font-size: 12px; letter-spacing: -0.12px; }
+  .sub-nav {
+    position: sticky; top: 44px; z-index: 19; height: 52px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+    background: rgba(245,245,247,0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .sub-nav .category { font-size: 21px; font-weight: 600; letter-spacing: 0.231px; color: var(--ink); text-decoration: none; }
+  .btn-primary {
+    display: inline-block; background: var(--primary); color: #fff; border: none;
+    border-radius: 9999px; padding: 8px 18px; font-size: 14px; font-family: inherit;
+    text-decoration: none; cursor: pointer; transition: transform .15s;
+  }
+  .btn-primary:active { transform: scale(0.95); }
+  .btn-primary:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
+
+  article { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+  .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
+  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 12px; }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-48);
+    letter-spacing: -0.12px; background: var(--pearl); border: 1px solid var(--hairline);
+    padding: 3px 10px; border-radius: 999px; margin: 0 0 32px;
+  }
+  h2 {
+    font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px;
+    margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--hairline);
+  }
+  h3 { font-size: 16px; font-weight: 600; margin: 24px 0 8px; }
+  p { color: var(--ink); font-size: 15px; line-height: 1.6; }
+  strong { color: var(--ink); }
+  code {
+    background: var(--pearl); border: 1px solid var(--hairline);
+    border-radius: 5px; padding: 2px 6px; font-size: 13.5px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  pre {
+    background: var(--pearl); border: 1px solid var(--hairline);
+    border-radius: 8px; padding: 16px 18px; overflow-x: auto;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: 13.5px; line-height: 1.6; }
+
+  @media (max-width: 640px) {
+    article { padding: 48px 20px 72px; }
+    h1 { font-size: 26px; }
+    .sub-nav { padding: 0 16px; }
+    .sub-nav .category { font-size: 17px; }
+  }
+  @media (max-width: 380px) {
+    .global-nav .meta { display: none; }
+  }
+</style>
+</head>
+<body>
+  <nav class="global-nav">
+    <a class="brand" href="../../index.html">class-html-2608</a>
+    <span class="meta">인공지능 심화(160H)</span>
+  </nav>
+  <nav class="sub-nav">
+    <a class="category" href="../index.html">팁</a>
+    <a class="btn-primary" href="../../index.html">전체 커리큘럼</a>
+  </nav>
+
+  <article>
+
+<span class="eyebrow">Notion MCP</span>
+<h1>Notion MCP 연동 실전 팁</h1>
+<div class="source">출처 · 08_autoworker02</div>
+
+<h2>데이터베이스 생성</h2>
+<p><code>notion-create-database</code>는 SQL DDL 문법을 쓴다. 예:</p>
+<pre><code>CREATE TABLE (
+  "제목" TITLE,
+  "채널" SELECT('a':blue, 'b':green),
+  "상태" SELECT('완료':yellow, '진행중':blue),
+  "글자수" NUMBER,
+  "업로드일" DATE
+)</code></pre>
+<p><code>STATUS</code> 타입보다 <code>SELECT</code>가 커스텀 옵션 이름·색을 지정하기 편하다 (칸반 보드 그룹핑에도 그대로 쓸 수 있음).</p>
+
+<h2>뷰(보드/테이블) 추가</h2>
+<p><code>notion-create-view</code>는 <strong>database_id와 data_source_id를 둘 다</strong> 요구한다. 하나만 넘기면 <code>Exactly one of database_id or parent_page_id must be provided</code> 에러가 난다 — 얼핏 봐선 원인 파악이 안 되는 에러 메시지이니 주의.</p>
+
+<h2>data_source_id 형식</h2>
+<p><code>create-pages</code>의 <code>parent.data_source_id</code>는 <strong>bare UUID</strong>만 받는다. <code>fetch</code>·<code>create-database</code> 응답에 나오는 <code>collection://xxxx-xxxx-...</code> 형태 URL을 그대로 넣으면 <code>should be a valid uuid</code> 에러가 난다 — <code>collection://</code> 접두사를 떼고 UUID만 넘길 것.</p>
+
+<h2>페이지 안에 코드 블록(복사하기 편한 박스) 넣기</h2>
+<p>마크다운 트리플 백틱(<code>```text ... ```</code>)으로 감싸면 Notion에서 언어 선택 드롭다운 + 복사 버튼이 있는 박스로 렌더링된다. 긴 텍스트(대본 전문 등)를 통째로 복사해가기 편하게 만들 때 유용하다.</p>
+
+  </article>
+</body>
+</html>
