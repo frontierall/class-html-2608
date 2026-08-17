@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code로 구글 로그인 구현하기 · class-html-2608</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root {
+    --primary: #0066cc; --primary-focus: #0071e3;
+    --canvas: #ffffff; --parchment: #f5f5f7; --pearl: #fafafc;
+    --black: #000000; --ink: #1d1d1f; --ink-80: #333333; --ink-48: #7a7a7a;
+    --hairline: #e0e0e0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--canvas); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px; line-height: 1.47; letter-spacing: -0.374px;
+  }
+  .global-nav {
+    position: sticky; top: 0; z-index: 20; height: 44px; background: var(--black);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+  }
+  .global-nav .brand { color: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.12px; text-decoration: none; }
+  .global-nav .meta { color: rgba(255,255,255,0.72); font-size: 12px; letter-spacing: -0.12px; }
+  .sub-nav {
+    position: sticky; top: 44px; z-index: 19; height: 52px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+    background: rgba(245,245,247,0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .sub-nav .category { font-size: 21px; font-weight: 600; letter-spacing: 0.231px; color: var(--ink); text-decoration: none; }
+  .btn-primary {
+    display: inline-block; background: var(--primary); color: #fff; border: none;
+    border-radius: 9999px; padding: 8px 18px; font-size: 14px; font-family: inherit;
+    text-decoration: none; cursor: pointer; transition: transform .15s;
+  }
+  .btn-primary:active { transform: scale(0.95); }
+  .btn-primary:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
+
+  article { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+
+  .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
+  h1 { font-size: 40px; font-weight: 600; line-height: 1.10; letter-spacing: 0; margin: 0 0 28px; }
+  h2 {
+    font-size: 28px; font-weight: 600; line-height: 1.14; letter-spacing: 0.196px;
+    margin: 56px 0 16px; padding-top: 32px; border-top: 1px solid var(--hairline);
+  }
+  h3 { font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px; margin: 32px 0 12px; }
+  p { color: var(--ink); font-size: 17px; line-height: 1.47; letter-spacing: -0.374px; }
+  ul, ol { font-size: 17px; line-height: 1.47; letter-spacing: -0.374px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+
+  code {
+    background: var(--pearl); border: 1px solid var(--hairline);
+    border-radius: 5px; padding: 2px 6px; font-size: 14px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  pre {
+    background: var(--pearl); border: 1px solid var(--hairline);
+    border-radius: 8px; padding: 18px 20px; overflow-x: auto;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: 14px; line-height: 1.6; }
+
+  blockquote {
+    margin: 24px 0; padding: 4px 0 4px 20px; border-left: 2px solid var(--hairline);
+  }
+  blockquote p { margin: 0; font-size: 14px; letter-spacing: -0.224px; color: var(--ink-80); }
+
+  img {
+    max-width: 100%; border-radius: 8px; border: 1px solid var(--hairline);
+    display: block; margin: 16px 0 8px;
+  }
+  .caption { font-size: 13px; color: var(--ink-48); letter-spacing: -0.154px; margin: 0 0 24px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--hairline); }
+  th { color: var(--ink-48); font-weight: 600; letter-spacing: -0.224px; }
+
+  hr { border: none; height: 1px; background: var(--hairline); margin: 48px 0; }
+</style>
+</head>
+<body>
+  <nav class="global-nav">
+    <a class="brand" href="../../index.html">class-html-2608</a>
+    <span class="meta">인공지능 심화(160H)</span>
+  </nav>
+  <nav class="sub-nav">
+    <a class="category" href="../index.html">02 바이브코딩</a>
+    <a class="btn-primary" href="../../index.html">전체 커리큘럼</a>
+  </nav>
+
+  <article>
+
+<span class="eyebrow">PART 02 · 바이브코딩 교안</span>
+<h1>Claude Code로 구글 로그인 구현하기</h1>
+<p>실제 서비스(ClassShelf)에 <strong>Supabase Auth + Google OAuth</strong>를 붙이면서 겪은 과정을 그대로 정리한 실습 자료입니다. Google Cloud Console에서 OAuth 클라이언트를 만드는 화면 흐름과, Claude Code·Supabase CLI로 이를 서비스에 연결하며 실제로 마주친 오류들을 함께 다룹니다.</p>
+
+<ul>
+<li>Google Cloud Console에서 OAuth 동의 화면(브랜딩)과 클라이언트 ID 발급</li>
+<li>"승인된 JavaScript 원본"과 "승인된 리디렉션 URI"를 헷갈려서 난 오류</li>
+<li>Supabase <code>config.toml</code>에 Google Provider 등록하고 배포하기</li>
+<li>Supabase CLI 조직 인증이 꼬였을 때 다시 로그인하는 법</li>
+</ul>
+
+<hr>
+
+<h2>1. Google Cloud Console — OAuth 동의 화면 만들기</h2>
+
+<p>OAuth 클라이언트 ID를 만들려면 그 전에 <strong>Google 인증 플랫폼(브랜딩)</strong>이 구성되어 있어야 합니다. 아직 안 되어 있다면 클라이언트 생성 화면에서 바로 경고가 뜨고 진행이 막힙니다.</p>
+
+<h3>1-1. 사용자 인증 정보 페이지로 이동</h3>
+<p>Google Cloud 콘솔 좌측 메뉴에서 <strong>API 및 서비스 → 사용자 인증 정보</strong>로 들어갑니다.</p>
+<img src="images/01-nav-credentials.png" alt="Google Cloud 좌측 내비게이션에서 API 및 서비스 → 사용자 인증 정보로 이동하는 화면">
+<p class="caption">API 및 서비스 → 사용자 인증 정보</p>
+
+<h3>1-2. OAuth 클라이언트 ID 만들기 시도</h3>
+<p><strong>+ 사용자 인증 정보 만들기</strong>를 누르고 <strong>OAuth 클라이언트 ID</strong>를 선택합니다.</p>
+<img src="images/02-create-oauth-client-id.jpg" alt="사용자 인증 정보 만들기 드롭다운에서 OAuth 클라이언트 ID를 선택하는 화면">
+<p class="caption">사용자 인증 정보 만들기 → OAuth 클라이언트 ID</p>
+
+<blockquote>
+<p><strong>실전 트러블슈팅:</strong> 프로젝트에 동의 화면이 한 번도 구성된 적이 없으면 "OAuth 클라이언트 ID를 만들려면 먼저 동의 화면을 구성해야 합니다"라는 경고가 뜨고 클라이언트 생성이 막힙니다. 아래처럼 <strong>동의 화면 구성</strong> 버튼부터 눌러 브랜딩을 먼저 완료해야 합니다.</p>
+</blockquote>
+<img src="images/03-consent-screen-required.png" alt="OAuth 클라이언트 ID를 만들려면 먼저 동의 화면을 구성해야 한다는 경고와 동의 화면 구성 버튼">
+<p class="caption">동의 화면(브랜딩)이 없으면 클라이언트 생성이 막힌다</p>
+
+<h3>1-3. 브랜딩 마법사 진행</h3>
+<p><strong>시작하기</strong>를 누르면 앱 정보 → 대상 → 연락처 정보 → 완료, 총 4단계로 구성된 마법사가 나옵니다.</p>
+<img src="images/04-auth-platform-start.png" alt="Google 인증 플랫폼이 아직 구성되지 않음, 시작하기 버튼이 있는 화면">
+<p class="caption">Google 인증 플랫폼 — 시작하기</p>
+
+<p><strong>① 앱 정보</strong> — 앱 이름과 사용자 지원 이메일을 입력합니다. (예: 앱 이름 <code>ClassShelf</code>, 지원 이메일은 서비스 관리자 계정)</p>
+<img src="images/05-branding-step1-app-info.png" alt="브랜딩 마법사 1단계, 앱 이름과 사용자 지원 이메일을 입력하는 화면">
+<p class="caption">① 앱 정보</p>
+
+<p><strong>② 대상</strong> — 개인 프로젝트나 테스트 단계라면 <strong>외부</strong>를 선택합니다. (조직 내부 사용자만 쓸 경우에만 내부를 선택)</p>
+<img src="images/06-branding-step2-audience.png" alt="브랜딩 마법사 2단계, 대상에서 외부가 선택된 화면">
+<p class="caption">② 대상 — 외부</p>
+
+<p><strong>③ 연락처 정보</strong> — 정책 관련 안내를 받을 이메일 주소를 입력합니다.</p>
+<img src="images/07-branding-step3-contact.png" alt="브랜딩 마법사 3단계, 연락처 이메일 주소를 입력하는 화면">
+<p class="caption">③ 연락처 정보</p>
+
+<p><strong>④ 완료</strong> — Google API 서비스 사용자 데이터 정책 동의 체크박스를 체크하고 계속을 누릅니다.</p>
+<img src="images/08-branding-step4-finish.png" alt="브랜딩 마법사 4단계, 사용자 데이터 정책 동의 체크박스와 계속 버튼">
+<p class="caption">④ 완료 — 정책 동의</p>
+
+<p>네 단계 모두 체크 표시가 뜨면 <strong>만들기</strong>를 눌러 브랜딩을 완료합니다.</p>
+<img src="images/09-branding-all-checked.png" alt="4단계 모두 체크 표시가 된 브랜딩 마법사 최종 화면, 만들기와 취소 버튼">
+<p class="caption">4단계 완료 → 만들기</p>
+
+<hr>
+
+<h2>2. OAuth 클라이언트 ID 발급</h2>
+
+<p>브랜딩이 끝나면 <strong>클라이언트</strong> 메뉴에서 실제 OAuth 클라이언트를 만들 수 있습니다.</p>
+
+<h3>2-1. 클라이언트 만들기</h3>
+<img src="images/10-clients-create-button.jpg" alt="클라이언트 목록이 비어있고 우측 상단에 클라이언트 만들기 버튼이 있는 화면">
+<p class="caption">클라이언트 → + 클라이언트 만들기</p>
+
+<h3>2-2. 애플리케이션 유형 선택</h3>
+<p>Next.js처럼 서버가 리디렉션을 처리하는 웹 서비스라면 <strong>웹 애플리케이션</strong>을 선택합니다.</p>
+<img src="images/11-application-type-web.png" alt="애플리케이션 유형 드롭다운에서 웹 애플리케이션을 선택하는 화면">
+<p class="caption">애플리케이션 유형 — 웹 애플리케이션</p>
+
+<h3>2-3. 승인된 JavaScript 원본 vs 승인된 리디렉션 URI</h3>
+<p>이 화면에서 가장 헷갈리기 쉬운 부분입니다. 두 필드는 용도가 완전히 다릅니다.</p>
+<ul>
+<li><strong>승인된 JavaScript 원본</strong> — 브라우저에서 직접 요청을 보낼 도메인의 <strong>origin만</strong> 입력합니다. 경로(<code>/</code> 이후)나 끝의 슬래시를 포함할 수 없습니다. Supabase가 서버 쪽에서 리디렉션을 처리하는 구조라면 이 필드는 <strong>비워둬도 됩니다.</strong></li>
+<li><strong>승인된 리디렉션 URI</strong> — Google이 로그인 후 실제로 돌려보낼 <strong>전체 콜백 경로</strong>를 입력합니다. Supabase는 <code>https://&lt;project-ref&gt;.supabase.co/auth/v1/callback</code> 형태입니다.</li>
+</ul>
+<img src="images/12-redirect-uri-form.png" alt="승인된 JavaScript 원본과 승인된 리디렉션 URI 입력란, URI 1에 Supabase 프로젝트 도메인이 입력된 화면">
+<p class="caption">승인된 리디렉션 URI에 Supabase 콜백 주소 입력 (전체 경로는 <code>/auth/v1/callback</code>까지 포함)</p>
+
+<blockquote>
+<p><strong>실전 트러블슈팅:</strong> 전체 콜백 경로(<code>.../auth/v1/callback</code>)를 실수로 <strong>승인된 JavaScript 원본</strong> 필드에 붙여넣으면 "올바르지 않은 출처: URI는 경로를 포함하거나 '/'로 끝날 수 없습니다" 오류가 납니다. JavaScript 원본은 경로 없는 origin 전용, 전체 경로는 반드시 리디렉션 URI 쪽에 입력해야 합니다.</p>
+</blockquote>
+
+<h3>2-4. 클라이언트 ID / 보안 비밀번호 확인</h3>
+<p><strong>만들기</strong>를 누르면 클라이언트 ID와 클라이언트 보안 비밀번호(secret)가 한 번만 표시됩니다.</p>
+<img src="images/13-client-id-secret-created.jpg" alt="OAuth 클라이언트 생성됨, 클라이언트 ID와 클라이언트 보안 비밀번호가 표시된 화면">
+<p class="caption">OAuth 클라이언트 생성 완료 — 이 화면을 벗어나면 보안 비밀번호를 다시 볼 수 없다</p>
+
+<blockquote>
+<p><strong>보안 주의:</strong> 클라이언트 보안 비밀번호는 서비스 전체의 Google 로그인을 대신할 수 있는 자격 증명입니다. 캡처 이미지나 대화창에 노출했다면 작업 후 재발급하고, 코드/커밋에는 절대 그대로 넣지 않습니다.</p>
+</blockquote>
+
+<hr>
+
+<h2>3. Supabase에 Google Provider 등록</h2>
+
+<p>발급받은 클라이언트 ID·비밀번호를 Supabase Auth에 등록해야 실제로 "Google로 로그인" 버튼이 동작합니다. 대시보드에서 직접 설정할 수도 있지만, 여기서는 <code>supabase/config.toml</code>을 코드로 관리하고 CLI로 배포합니다.</p>
+
+<h3>3-1. config.toml에 Provider 추가</h3>
+<pre><code>[auth.external.google]
+enabled = true
+client_id = "527040890999-xxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com"
+# 절대 secret 값을 그대로 커밋하지 않는다 — 환경 변수로 치환
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+redirect_uri = ""
+url = ""
+skip_nonce_check = false</code></pre>
+<p><code>secret</code>은 <code>env(VAR_NAME)</code> 문법으로 환경 변수를 참조하게 하고, 실제 값은 Supabase 프로젝트의 <strong>비밀 변수(secrets)</strong>로 별도 등록합니다.</p>
+<pre><code>supabase secrets set SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET="GOCSPX-..." --project-ref &lt;project ref&gt;</code></pre>
+
+<h3>3-2. 원격 설정에 반영</h3>
+<pre><code>supabase config push</code></pre>
+
+<blockquote>
+<p><strong>실전 트러블슈팅:</strong> <code>supabase init</code>으로 갓 생성한 <code>config.toml</code>을 그대로 <code>push</code>하면, 건드리지 않은 값까지 로컬 기본값으로 덮어써 버릴 수 있습니다. 실제로 이 과정에서 <code>email.max_frequency</code>(메일 발송 최소 간격)와 <code>email.enable_confirmations</code>가 의도치 않게 바뀐 적이 있습니다. <code>config push</code>는 항상 명령이 보여주는 diff를 먼저 확인하고, 예상 밖의 변경이 있으면 되돌린 뒤 다시 push합니다.</p>
+</blockquote>
+
+<h3>3-3. Supabase CLI 인증이 다른 조직으로 붙어 있을 때</h3>
+<p>CLI가 원하는 조직이 아닌 다른 계정/조직에 로그인되어 있으면 <code>config push</code>, <code>projects list</code> 같은 명령이 403이나 엉뚱한 프로젝트 목록을 반환합니다. 이럴 때는 다시 로그인합니다.</p>
+<pre><code>supabase login</code></pre>
+<p>브라우저가 자동으로 열리고, 터미널에 표시된 인증 코드를 브라우저 쪽 화면에 입력해 CLI와 계정을 연결합니다.</p>
+<img src="images/14-supabase-cli-login-verify.jpg" alt="터미널에서 supabase login을 실행한 화면과 브라우저에서 인증 코드를 입력하는 Authorize Supabase CLI 화면">
+<p class="caption">supabase login — 터미널의 인증 코드를 브라우저에 입력해 CLI를 재인증한다</p>
+
+<blockquote>
+<p><strong>실전 트러블슈팅:</strong> Claude Code처럼 브라우저를 직접 열 수 없는(non-TTY) 환경에서는 <code>supabase login</code>을 에이전트가 대신 실행할 수 없습니다(<code>LegacyLoginMissingTokenError: Cannot use automatic login flow inside non-TTY environments</code>). 이런 경우 사용자가 터미널에서 직접 <code>supabase login</code>을 실행하고, 완료 후 <code>supabase projects list</code>로 올바른 조직/프로젝트가 보이는지 확인한 뒤 이어서 진행합니다.</p>
+</blockquote>
+
+<hr>
+
+<h2>4. 로그인 페이지에 Google 버튼 연결</h2>
+
+<p>Provider 등록이 끝나면, 클라이언트 코드에서는 Supabase Auth의 <code>signInWithOAuth</code>를 호출하는 Server Action 하나만 있으면 됩니다.</p>
+<pre><code>// app/login/actions.ts
+"use server";
+
+export async function signInWithGoogle() {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: `${getSiteUrl()}/auth/callback` },
+  });
+  if (error) throw error;
+  redirect(data.url);
+}</code></pre>
+<p>버튼을 누르면 Google 로그인 화면 → 동의 → <code>/auth/callback</code>으로 리디렉션되어 세션이 생성됩니다. 콜백 라우트는 PKCE(<code>?code=</code>)와 구버전 implicit(<code>#access_token=</code>) 두 방식을 모두 받을 수 있게 만들어 두는 것이 안전합니다.</p>
+
+<hr>
+
+<h2>5. 검증</h2>
+
+<p>배포 후 실제로 Google Provider가 켜졌는지는 로그인 버튼을 눌러 리디렉션 URL의 <code>client_id</code>가 방금 발급한 값과 일치하는지 확인하면 됩니다.</p>
+<pre><code>curl -sI "https://&lt;project-ref&gt;.supabase.co/auth/v1/authorize?provider=google" | grep -i location</code></pre>
+<p><code>Location</code> 헤더가 <code>accounts.google.com</code>으로 향하고, 그 안의 <code>client_id</code> 파라미터가 Google Cloud Console에서 발급받은 값과 같으면 정상입니다.</p>
+
+<hr>
+
+<h2>6. 전체 흐름 요약</h2>
+
+<table>
+<thead>
+<tr><th>단계</th><th>위치</th><th>핵심 내용</th></tr>
+</thead>
+<tbody>
+<tr><td>동의 화면(브랜딩) 구성</td><td>Google Cloud Console</td><td>앱 정보 → 대상(외부) → 연락처 → 정책 동의</td></tr>
+<tr><td>OAuth 클라이언트 생성</td><td>Google Cloud Console</td><td>웹 애플리케이션, 리디렉션 URI = <code>.../auth/v1/callback</code></td></tr>
+<tr><td>Provider 등록</td><td>Supabase</td><td><code>config.toml</code> + <code>secrets set</code> + <code>config push</code></td></tr>
+<tr><td>로그인 연동</td><td>Next.js</td><td><code>signInWithOAuth({ provider: "google" })</code></td></tr>
+</tbody>
+</table>
+
+<p>실수가 가장 잦은 지점은 두 곳입니다 — Google Cloud의 <strong>JavaScript 원본과 리디렉션 URI를 혼동하는 것</strong>, 그리고 Supabase CLI가 <strong>의도치 않은 조직/계정에 로그인되어 있는 것</strong>. 두 가지만 미리 알고 있으면 나머지 과정은 화면을 따라가는 것만으로 충분합니다.</p>
+
+  </article>
+</body>
+</html>

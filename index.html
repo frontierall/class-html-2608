@@ -79,6 +79,9 @@
     color: var(--ink-48); margin-bottom: 12px;
   }
   .tile.dark1 .eyebrow, .tile.dark2 .eyebrow, .tile.dark3 .eyebrow { color: var(--muted-on-dark); }
+  .tile h1.hero-headline {
+    font-size: 56px; font-weight: 600; line-height: 1.07; letter-spacing: -0.28px; margin: 0 0 16px;
+  }
   .tile h2.tile-headline {
     font-size: 40px; font-weight: 600; line-height: 1.10; letter-spacing: 0; margin: 0 0 14px;
   }
@@ -88,22 +91,6 @@
   .tile-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; align-items: center; }
   .tile .muted-note { color: var(--ink-48); }
   .tile.dark1 .muted-note, .tile.dark2 .muted-note, .tile.dark3 .muted-note { color: var(--muted-on-dark); }
-
-  /* ---- stat tile ---- */
-  .stat-row { display: flex; justify-content: center; gap: 56px; flex-wrap: wrap; margin-bottom: 24px; }
-  .stat-row .stat-number {
-    display: block; font-size: 40px; font-weight: 600; line-height: 1.10; letter-spacing: 0;
-  }
-  .stat-row .stat-label {
-    display: block; font-size: 14px; font-weight: 400; letter-spacing: -0.224px; color: var(--ink-48);
-    margin-top: 4px;
-  }
-  .stat-dates { font-size: 17px; color: var(--ink-80); letter-spacing: -0.374px; }
-
-  @media (max-width: 480px) {
-    .stat-row { gap: 32px; }
-    .stat-row .stat-number { font-size: 30px; }
-  }
 
   /* ---- footer ---- */
   footer.site-footer { background: var(--parchment); color: var(--ink-80); padding: 64px 24px 32px; }
@@ -122,6 +109,7 @@
 
   @media (max-width: 640px) {
     .tile { padding: 48px 20px; }
+    .tile h1.hero-headline { font-size: 34px; }
     .tile h2.tile-headline { font-size: 28px; }
     .tile p.tile-tagline { font-size: 20px; }
   }
@@ -136,22 +124,9 @@
 
   <section class="tile light">
     <div class="tile-inner">
-      <span class="eyebrow">인공지능 심화(160H) 커리큘럼</span>
-      <div class="stat-row">
-        <div>
-          <span class="stat-number">8</span>
-          <span class="stat-label">PART</span>
-        </div>
-        <div>
-          <span class="stat-number">160H</span>
-          <span class="stat-label">총 시수</span>
-        </div>
-        <div>
-          <span class="stat-number">11주</span>
-          <span class="stat-label">진행 기간</span>
-        </div>
-      </div>
-      <p class="stat-dates">8/26 시작 · 11/11 종료</p>
+      <span class="eyebrow">인공지능 심화(160H)</span>
+      <h1 class="hero-headline">아이디어를 실전 서비스로</h1>
+      <p class="tile-tagline">기획부터 UX/UI, 개발, 데이터 분석까지 — 풀스택 프로덕트 메이커 커리큘럼</p>
     </div>
   </section>
 
