@@ -56,28 +56,34 @@
     scrollbar-width: none;
   }
   nav.tabbar::-webkit-scrollbar { display: none; }
-  nav.tabbar a {
+  nav.tabbar button {
+    all: unset;
     flex: 0 0 auto;
     display: flex;
     align-items: baseline;
     gap: 6px;
     padding: 8px 14px;
     border-radius: 999px;
-    text-decoration: none;
+    cursor: pointer;
     color: var(--text-dim);
     font-size: 13px;
     white-space: nowrap;
     transition: background 0.15s, color 0.15s;
   }
-  nav.tabbar a .num {
+  nav.tabbar button .num {
     font-weight: 700;
     color: var(--accent);
     font-size: 12px;
   }
-  nav.tabbar a:hover {
+  nav.tabbar button:hover {
     background: var(--surface-hover);
     color: var(--text);
   }
+  nav.tabbar button.active {
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+  nav.tabbar button.active .num { color: var(--accent); }
 
   main {
     max-width: 1040px;
@@ -88,6 +94,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 14px;
+  }
+  .grid.filtered {
+    grid-template-columns: minmax(0, 420px);
+    justify-content: center;
   }
   a.card {
     display: block;
@@ -104,6 +114,7 @@
     border-color: var(--accent);
     background: var(--surface-hover);
   }
+  a.card.hidden { display: none; }
   .card .num {
     display: inline-block;
     font-size: 12px;
@@ -146,15 +157,16 @@
 </head>
 <body>
 
-  <nav class="tabbar">
-    <a href="01_오리엔테이션/index.html"><span class="num">01</span> 오리엔테이션</a>
-    <a href="02_바이브코딩/index.html"><span class="num">02</span> 바이브코딩</a>
-    <a href="03_UXUI디자인/index.html"><span class="num">03</span> UXUI디자인</a>
-    <a href="04_노코드프로토타이핑/index.html"><span class="num">04</span> 노코드프로토타이핑</a>
-    <a href="05_서비스기획/index.html"><span class="num">05</span> 서비스기획</a>
-    <a href="06_데이터ML/index.html"><span class="num">06</span> 데이터ML</a>
-    <a href="07_LLM_RAG_Agent/index.html"><span class="num">07</span> LLM_RAG_Agent</a>
-    <a href="08_해커톤/index.html"><span class="num">08</span> 해커톤</a>
+  <nav class="tabbar" id="tabbar">
+    <button data-part="all" class="active">전체</button>
+    <button data-part="01"><span class="num">01</span> 오리엔테이션</button>
+    <button data-part="02"><span class="num">02</span> 바이브코딩</button>
+    <button data-part="03"><span class="num">03</span> UXUI디자인</button>
+    <button data-part="04"><span class="num">04</span> 노코드프로토타이핑</button>
+    <button data-part="05"><span class="num">05</span> 서비스기획</button>
+    <button data-part="06"><span class="num">06</span> 데이터ML</button>
+    <button data-part="07"><span class="num">07</span> LLM_RAG_Agent</button>
+    <button data-part="08"><span class="num">08</span> 해커톤</button>
   </nav>
 
   <header class="hero">
@@ -163,43 +175,43 @@
   </header>
 
   <main>
-    <div class="grid">
-      <a class="card" href="01_오리엔테이션/index.html">
+    <div class="grid" id="grid">
+      <a class="card" data-part="01" href="01_오리엔테이션/index.html">
         <span class="num">01</span>
         <h2>오리엔테이션</h2>
         <span class="badge pending"><span class="dot"></span>준비중</span>
       </a>
-      <a class="card" href="02_바이브코딩/index.html">
+      <a class="card" data-part="02" href="02_바이브코딩/index.html">
         <span class="num">02</span>
         <h2>바이브코딩</h2>
         <span class="badge ok"><span class="dot"></span>자료 1개</span>
       </a>
-      <a class="card" href="03_UXUI디자인/index.html">
+      <a class="card" data-part="03" href="03_UXUI디자인/index.html">
         <span class="num">03</span>
         <h2>UXUI디자인</h2>
         <span class="badge pending"><span class="dot"></span>준비중</span>
       </a>
-      <a class="card" href="04_노코드프로토타이핑/index.html">
+      <a class="card" data-part="04" href="04_노코드프로토타이핑/index.html">
         <span class="num">04</span>
         <h2>노코드프로토타이핑</h2>
         <span class="badge pending"><span class="dot"></span>준비중</span>
       </a>
-      <a class="card" href="05_서비스기획/index.html">
+      <a class="card" data-part="05" href="05_서비스기획/index.html">
         <span class="num">05</span>
         <h2>서비스기획</h2>
         <span class="badge pending"><span class="dot"></span>준비중</span>
       </a>
-      <a class="card" href="06_데이터ML/index.html">
+      <a class="card" data-part="06" href="06_데이터ML/index.html">
         <span class="num">06</span>
         <h2>데이터ML</h2>
         <span class="badge pending"><span class="dot"></span>준비중</span>
       </a>
-      <a class="card" href="07_LLM_RAG_Agent/index.html">
+      <a class="card" data-part="07" href="07_LLM_RAG_Agent/index.html">
         <span class="num">07</span>
         <h2>LLM_RAG_Agent</h2>
         <span class="badge pending"><span class="dot"></span>준비중</span>
       </a>
-      <a class="card" href="08_해커톤/index.html">
+      <a class="card" data-part="08" href="08_해커톤/index.html">
         <span class="num">08</span>
         <h2>해커톤</h2>
         <span class="badge pending"><span class="dot"></span>준비중</span>
@@ -208,6 +220,29 @@
   </main>
 
   <footer>class-html-2608 · frontierall</footer>
+
+  <script>
+    const tabs = document.querySelectorAll('#tabbar button');
+    const cards = document.querySelectorAll('#grid .card');
+    const grid = document.getElementById('grid');
+
+    function applyFilter(part) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.part === part));
+      cards.forEach(c => c.classList.toggle('hidden', part !== 'all' && c.dataset.part !== part));
+      grid.classList.toggle('filtered', part !== 'all');
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const part = tab.dataset.part;
+        history.replaceState(null, '', part === 'all' ? location.pathname : `#${part}`);
+        applyFilter(part);
+      });
+    });
+
+    const initial = location.hash.replace('#', '');
+    applyFilter(initial && [...tabs].some(t => t.dataset.part === initial) ? initial : 'all');
+  </script>
 
 </body>
 </html>
