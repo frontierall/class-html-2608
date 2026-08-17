@@ -129,9 +129,11 @@
     <p class="tagline">수업·저장소를 만들고 운영하며 겪은 문제와 해결 방법을 남깁니다. 같은 문제를 반복해서 조사하지 않는 것이 목표입니다.</p>
 
     <nav class="group-tabs" id="group-tabs">
-      <button data-project="all" class="active">전체</button>
-      <button data-project="class-html-2608">class-html-2608</button>
-      <button data-project="ClassShelf-codex-2608">ClassShelf-codex-2608</button>
+      <button data-cat="all" class="active">전체</button>
+      <button data-cat="github-pages">GitHub Pages</button>
+      <button data-cat="html-encoding">HTML · 인코딩</button>
+      <button data-cat="security">보안 · Git</button>
+      <button data-cat="supabase-auth">Supabase · Auth</button>
     </nav>
 
     <label class="search-input">
@@ -142,25 +144,25 @@
     <p class="result-count" id="result-count">4개 이슈</p>
 
     <div class="utility-grid" id="grid">
-      <a class="utility-card" data-project="ClassShelf-codex-2608" href="google-provider-not-enabled/index.html">
+      <a class="utility-card" data-cat="supabase-auth" href="google-provider-not-enabled/index.html">
         <span class="tag">Supabase · Auth</span>
         <div class="name">Google 로그인 "provider is not enabled"</div>
         <div class="meta">Supabase Google Provider 미활성화</div>
         <span class="project">ClassShelf-codex-2608</span>
       </a>
-      <a class="utility-card" data-project="class-html-2608" href="github-pages-private-repo/index.html">
+      <a class="utility-card" data-cat="github-pages" href="github-pages-private-repo/index.html">
         <span class="tag">GitHub Pages</span>
         <div class="name">GitHub Pages가 Private 저장소에서 동작하지 않음</div>
         <div class="meta">Public 전환 후 Pages 활성화로 해결</div>
         <span class="project">class-html-2608</span>
       </a>
-      <a class="utility-card" data-project="class-html-2608" href="html-encoding-mojibake/index.html">
+      <a class="utility-card" data-cat="html-encoding" href="html-encoding-mojibake/index.html">
         <span class="tag">HTML · 인코딩</span>
         <div class="name">교안 HTML에 문서 구조가 없어 한글이 깨짐</div>
         <div class="meta">DOCTYPE·charset 없는 조각 HTML → 완전한 문서로 재작성</div>
         <span class="project">class-html-2608</span>
       </a>
-      <a class="utility-card" data-project="class-html-2608" href="sensitive-screenshot-exposure/index.html">
+      <a class="utility-card" data-cat="security" href="sensitive-screenshot-exposure/index.html">
         <span class="tag">보안 · Git</span>
         <div class="name">교안 폴더에 민감한 원본 스크린샷이 함께 있을 위험</div>
         <div class="meta">이미지 블러 확인 + .gitignore 제외</div>
@@ -190,16 +192,16 @@
     const searchInput = document.getElementById('search');
     const resultCount = document.getElementById('result-count');
     const emptyNote = document.getElementById('empty-note');
-    let activeProject = 'all';
+    let activeCat = 'all';
 
     function applyFilters() {
       const q = searchInput.value.trim().toLowerCase();
       let visible = 0;
       cards.forEach(card => {
-        const matchesProject = activeProject === 'all' || card.dataset.project === activeProject;
+        const matchesCat = activeCat === 'all' || card.dataset.cat === activeCat;
         const text = card.innerText.toLowerCase();
         const matchesQuery = !q || text.includes(q);
-        const show = matchesProject && matchesQuery;
+        const show = matchesCat && matchesQuery;
         card.classList.toggle('hidden', !show);
         if (show) visible++;
       });
@@ -211,7 +213,7 @@
       tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        activeProject = tab.dataset.project;
+        activeCat = tab.dataset.cat;
         applyFilters();
       });
     });
