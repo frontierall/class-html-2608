@@ -43,7 +43,12 @@
 
   article { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
   .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
-  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 28px; }
+  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 12px; }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-48);
+    letter-spacing: -0.12px; background: var(--pearl); border: 1px solid var(--hairline);
+    padding: 3px 10px; border-radius: 999px; margin: 0 0 32px;
+  }
   h2 {
     font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px;
     margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--hairline);
@@ -94,6 +99,7 @@
 
 <span class="eyebrow">Supabase · Google OAuth</span>
 <h1>Google 로그인 시 "Unsupported provider: provider is not enabled"</h1>
+<div class="source">출처 · ClassShelf-codex-2608</div>
 
 <h2>증상</h2>
 <p>로그인 화면에서 "Google로 로그인" 버튼을 눌렀을 때 아래 오류가 발생했다.</p>

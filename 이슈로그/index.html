@@ -41,24 +41,57 @@
   .btn-primary:active { transform: scale(0.95); }
   .btn-primary:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
 
-  main.content { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+  main.content { max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }
   .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
   h1.headline { font-size: 40px; font-weight: 600; line-height: 1.10; letter-spacing: 0; margin: 0 0 14px; }
-  p.tagline { font-size: 22px; font-weight: 400; line-height: 1.3; letter-spacing: 0.196px; margin: 0 0 20px; color: var(--ink-80); }
+  p.tagline { font-size: 22px; font-weight: 400; line-height: 1.3; letter-spacing: 0.196px; margin: 0 0 28px; color: var(--ink-80); }
 
-  .utility-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 40px; }
+  /* ---- group tabs ---- */
+  .group-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 16px; scrollbar-width: none; }
+  .group-tabs::-webkit-scrollbar { display: none; }
+  .group-tabs button {
+    all: unset; flex: 0 0 auto; cursor: pointer; font-size: 13px; letter-spacing: -0.224px;
+    color: var(--ink-48); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--hairline);
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .group-tabs button:hover { border-color: var(--primary); color: var(--ink); }
+  .group-tabs button.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+  /* ---- search ---- */
+  .search-input {
+    display: flex; align-items: center; gap: 8px; background: var(--canvas);
+    border: 1px solid var(--hairline); border-radius: 9999px; padding: 10px 18px;
+    margin-bottom: 28px;
+  }
+  .search-input svg { flex: 0 0 auto; color: var(--ink-48); }
+  .search-input input {
+    all: unset; flex: 1 1 auto; font-size: 15px; font-family: inherit; color: var(--ink);
+    letter-spacing: -0.224px;
+  }
+  .search-input input::placeholder { color: var(--ink-48); }
+
+  .result-count { font-size: 13px; color: var(--ink-48); letter-spacing: -0.224px; margin: 0 0 12px; }
+
+  .utility-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
   a.utility-card {
     display: block; background: var(--canvas); border: 1px solid var(--hairline);
     border-radius: 18px; padding: 20px; text-decoration: none; color: var(--ink);
     transition: border-color .15s;
   }
   a.utility-card:hover { border-color: var(--primary); }
+  a.utility-card.hidden { display: none; }
   a.utility-card .tag {
     display: inline-block; font-size: 11px; font-weight: 700; color: var(--primary);
     background: rgba(0,102,204,0.08); padding: 2px 8px; border-radius: 999px; margin-bottom: 10px;
   }
   a.utility-card .name { font-size: 17px; font-weight: 600; letter-spacing: -0.374px; margin-bottom: 6px; }
   a.utility-card .meta { font-size: 14px; color: var(--ink-48); letter-spacing: -0.224px; }
+  a.utility-card .project {
+    display: inline-block; font-size: 11px; color: var(--ink-48); letter-spacing: -0.12px;
+    background: var(--pearl); border: 1px solid var(--hairline); padding: 2px 8px;
+    border-radius: 999px; margin-top: 10px;
+  }
+  .empty-note { font-size: 14px; color: var(--ink-48); letter-spacing: -0.224px; padding: 24px 0; }
 
   footer.site-footer { background: var(--parchment); color: var(--ink-80); padding: 64px 24px 32px; }
   .footer-links { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px 32px; }
@@ -73,6 +106,7 @@
     .sub-nav { padding: 0 16px; }
     .sub-nav .category { font-size: 17px; }
     .footer-links { grid-template-columns: repeat(2, 1fr); gap: 4px 20px; }
+    .utility-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 380px) {
     .global-nav .meta { display: none; }
@@ -94,28 +128,46 @@
     <h1 class="headline">이슈 로그</h1>
     <p class="tagline">수업·저장소를 만들고 운영하며 겪은 문제와 해결 방법을 남깁니다. 같은 문제를 반복해서 조사하지 않는 것이 목표입니다.</p>
 
-    <div class="utility-grid">
-      <a class="utility-card" href="google-provider-not-enabled/index.html">
+    <nav class="group-tabs" id="group-tabs">
+      <button data-project="all" class="active">전체</button>
+      <button data-project="class-html-2608">class-html-2608</button>
+      <button data-project="ClassShelf-codex-2608">ClassShelf-codex-2608</button>
+    </nav>
+
+    <label class="search-input">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="search" placeholder="제목, 프로젝트, 키워드로 검색">
+    </label>
+
+    <p class="result-count" id="result-count">4개 이슈</p>
+
+    <div class="utility-grid" id="grid">
+      <a class="utility-card" data-project="ClassShelf-codex-2608" href="google-provider-not-enabled/index.html">
         <span class="tag">Supabase · Auth</span>
         <div class="name">Google 로그인 "provider is not enabled"</div>
-        <div class="meta">ClassShelf-codex-2608 · Supabase Google Provider 미활성화</div>
+        <div class="meta">Supabase Google Provider 미활성화</div>
+        <span class="project">ClassShelf-codex-2608</span>
       </a>
-      <a class="utility-card" href="github-pages-private-repo/index.html">
+      <a class="utility-card" data-project="class-html-2608" href="github-pages-private-repo/index.html">
         <span class="tag">GitHub Pages</span>
         <div class="name">GitHub Pages가 Private 저장소에서 동작하지 않음</div>
         <div class="meta">Public 전환 후 Pages 활성화로 해결</div>
+        <span class="project">class-html-2608</span>
       </a>
-      <a class="utility-card" href="html-encoding-mojibake/index.html">
+      <a class="utility-card" data-project="class-html-2608" href="html-encoding-mojibake/index.html">
         <span class="tag">HTML · 인코딩</span>
         <div class="name">교안 HTML에 문서 구조가 없어 한글이 깨짐</div>
         <div class="meta">DOCTYPE·charset 없는 조각 HTML → 완전한 문서로 재작성</div>
+        <span class="project">class-html-2608</span>
       </a>
-      <a class="utility-card" href="sensitive-screenshot-exposure/index.html">
+      <a class="utility-card" data-project="class-html-2608" href="sensitive-screenshot-exposure/index.html">
         <span class="tag">보안 · Git</span>
         <div class="name">교안 폴더에 민감한 원본 스크린샷이 함께 있을 위험</div>
         <div class="meta">이미지 블러 확인 + .gitignore 제외</div>
+        <span class="project">class-html-2608</span>
       </a>
     </div>
+    <p class="empty-note" id="empty-note" style="display:none;">일치하는 이슈가 없습니다.</p>
   </main>
 
   <footer class="site-footer">
@@ -131,5 +183,40 @@
     </div>
     <div class="footer-legal">class-html-2608 · frontierall</div>
   </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('#group-tabs button');
+    const cards = document.querySelectorAll('#grid .utility-card');
+    const searchInput = document.getElementById('search');
+    const resultCount = document.getElementById('result-count');
+    const emptyNote = document.getElementById('empty-note');
+    let activeProject = 'all';
+
+    function applyFilters() {
+      const q = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const matchesProject = activeProject === 'all' || card.dataset.project === activeProject;
+        const text = card.innerText.toLowerCase();
+        const matchesQuery = !q || text.includes(q);
+        const show = matchesProject && matchesQuery;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      resultCount.textContent = `${visible}개 이슈`;
+      emptyNote.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeProject = tab.dataset.project;
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener('input', applyFilters);
+  </script>
 </body>
 </html>

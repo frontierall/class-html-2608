@@ -43,7 +43,12 @@
 
   article { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
   .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
-  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 28px; }
+  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 12px; }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-48);
+    letter-spacing: -0.12px; background: var(--pearl); border: 1px solid var(--hairline);
+    padding: 3px 10px; border-radius: 999px; margin: 0 0 32px;
+  }
   h2 {
     font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px;
     margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--hairline);
@@ -81,6 +86,7 @@
 
 <span class="eyebrow">GitHub Pages</span>
 <h1>GitHub Pages가 Private 저장소에서 동작하지 않음</h1>
+<div class="source">출처 · class-html-2608</div>
 
 <h2>증상</h2>
 <p>저장소를 Private 상태로 두고 GitHub Pages를 켜려 하면 활성화가 거부된다. 무료 개인 플랜은 Private 저장소에 대해 Pages를 지원하지 않는다. (Pro/Team/Enterprise 플랜에서만 Private 저장소 Pages 지원)</p>

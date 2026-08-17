@@ -43,7 +43,12 @@
 
   article { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
   .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
-  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 28px; }
+  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 12px; }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-48);
+    letter-spacing: -0.12px; background: var(--pearl); border: 1px solid var(--hairline);
+    padding: 3px 10px; border-radius: 999px; margin: 0 0 32px;
+  }
   h2 {
     font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px;
     margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--hairline);
@@ -81,6 +86,7 @@
 
 <span class="eyebrow">HTML · 인코딩</span>
 <h1>교안 HTML에 문서 구조가 없어 한글이 깨짐</h1>
+<div class="source">출처 · class-html-2608</div>
 
 <h2>증상</h2>
 <p>일부 교안 파일이 <code>&lt;!DOCTYPE html&gt;</code>·<code>&lt;head&gt;</code>·<code>&lt;meta charset="UTF-8"&gt;</code> 없이 본문 태그(<code>&lt;h1&gt;</code> 등)로 바로 시작하는 조각 형태였다. 브라우저가 인코딩을 잘못 추측해 한글 전체가 깨진 문자로 표시됐다.</p>

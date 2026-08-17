@@ -43,7 +43,12 @@
 
   article { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
   .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
-  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 28px; }
+  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 12px; }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-48);
+    letter-spacing: -0.12px; background: var(--pearl); border: 1px solid var(--hairline);
+    padding: 3px 10px; border-radius: 999px; margin: 0 0 32px;
+  }
   h2 {
     font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px;
     margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--hairline);
@@ -81,6 +86,7 @@
 
 <span class="eyebrow">보안 · Git</span>
 <h1>교안 폴더에 민감한 원본 스크린샷이 함께 있을 위험</h1>
+<div class="source">출처 · class-html-2608</div>
 
 <h2>증상</h2>
 <p>Supabase Personal Access Token, Google OAuth 클라이언트 보안 비밀번호가 찍힌 화면 캡처가 교안 자료 폴더 주변에 함께 존재했다. 그대로 커밋하면 저장소가 Public으로 전환됐을 때 자격 증명이 노출될 수 있었다.</p>
