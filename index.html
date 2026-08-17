@@ -3,29 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>class-html-2608 · 인공지능 심화(160H) 커리큘럼</title>
+<title>class-html-2608 · 인공지능 심화(160H)</title>
+<style>
+  :root {
+    --bg: #0b0b10;
+    --surface: #15151d;
+    --surface-hover: #1c1c26;
+    --border: #26262f;
+    --text: #f2f2f5;
+    --text-dim: #9b9ba8;
+    --accent: #8b7bff;
+    --accent-soft: rgba(139, 123, 255, 0.15);
+    --ok: #4ade80;
+    --ok-soft: rgba(74, 222, 128, 0.12);
+    --pending: #5c5c68;
+    --pending-soft: rgba(255, 255, 255, 0.04);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header.hero {
+    padding: 48px 24px 28px;
+    text-align: center;
+  }
+  header.hero h1 {
+    margin: 0 0 8px;
+    font-size: clamp(24px, 4vw, 32px);
+    letter-spacing: -0.02em;
+  }
+  header.hero p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  nav.tabbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 10px 16px;
+    background: rgba(11, 11, 16, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  nav.tabbar::-webkit-scrollbar { display: none; }
+  nav.tabbar a {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 13px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  nav.tabbar a .num {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+  }
+  nav.tabbar a:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+
+  main {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  a.card {
+    display: block;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: transform 0.15s, border-color 0.15s, background 0.15s;
+  }
+  a.card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    background: var(--surface-hover);
+  }
+  .card .num {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .card h2 {
+    margin: 0 0 14px;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .badge.ok { color: var(--ok); background: var(--ok-soft); }
+  .badge.pending { color: var(--pending); background: var(--pending-soft); }
+  .badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+</style>
 </head>
 <body>
-  <header>
+
+  <nav class="tabbar">
+    <a href="01_오리엔테이션/index.html"><span class="num">01</span> 오리엔테이션</a>
+    <a href="02_바이브코딩/index.html"><span class="num">02</span> 바이브코딩</a>
+    <a href="03_UXUI디자인/index.html"><span class="num">03</span> UXUI디자인</a>
+    <a href="04_노코드프로토타이핑/index.html"><span class="num">04</span> 노코드프로토타이핑</a>
+    <a href="05_서비스기획/index.html"><span class="num">05</span> 서비스기획</a>
+    <a href="06_데이터ML/index.html"><span class="num">06</span> 데이터ML</a>
+    <a href="07_LLM_RAG_Agent/index.html"><span class="num">07</span> LLM_RAG_Agent</a>
+    <a href="08_해커톤/index.html"><span class="num">08</span> 해커톤</a>
+  </nav>
+
+  <header class="hero">
     <h1>class-html-2608</h1>
-    <p>공통 소스 HTML 공유 저장소 — 인공지능 심화(160H) 과정 (2026.08.26 ~ 11.11)</p>
+    <p>인공지능 심화(160H) · 공통 소스 HTML 공유 저장소</p>
   </header>
+
   <main>
-    <table border="1" cellpadding="8" cellspacing="0">
-      <thead>
-        <tr><th>PART</th><th>내용</th><th>시수</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><a href="01_오리엔테이션/index.html">01_오리엔테이션</a></td><td>과정 오리엔테이션</td><td>8H</td></tr>
-        <tr><td><a href="02_바이브코딩/index.html">02_바이브코딩</a></td><td>AI 실전 활용 - 바이브 코딩 및 프롬프트 엔지니어링</td><td>20H</td></tr>
-        <tr><td><a href="03_UXUI디자인/index.html">03_UXUI디자인</a></td><td>AI 시대 UX/UI 디자인</td><td>12H</td></tr>
-        <tr><td><a href="04_노코드프로토타이핑/index.html">04_노코드프로토타이핑</a></td><td>노코드 AI 프로토타이핑</td><td>20H</td></tr>
-        <tr><td><a href="05_서비스기획/index.html">05_서비스기획</a></td><td>서비스 기획 & 린 스타트업</td><td>16H</td></tr>
-        <tr><td><a href="06_데이터ML/index.html">06_데이터ML</a></td><td>AI를 위한 데이터 실전 분석 & ML 기본</td><td>28H</td></tr>
-        <tr><td><a href="07_LLM_RAG_Agent/index.html">07_LLM_RAG_Agent</a></td><td>LLM, RAG & AI Agent 개발</td><td>28H</td></tr>
-        <tr><td><a href="08_해커톤/index.html">08_해커톤</a></td><td>실전 해커톤</td><td>28H</td></tr>
-      </tbody>
-    </table>
+    <div class="grid">
+      <a class="card" href="01_오리엔테이션/index.html">
+        <span class="num">01</span>
+        <h2>오리엔테이션</h2>
+        <span class="badge pending"><span class="dot"></span>준비중</span>
+      </a>
+      <a class="card" href="02_바이브코딩/index.html">
+        <span class="num">02</span>
+        <h2>바이브코딩</h2>
+        <span class="badge ok"><span class="dot"></span>자료 1개</span>
+      </a>
+      <a class="card" href="03_UXUI디자인/index.html">
+        <span class="num">03</span>
+        <h2>UXUI디자인</h2>
+        <span class="badge pending"><span class="dot"></span>준비중</span>
+      </a>
+      <a class="card" href="04_노코드프로토타이핑/index.html">
+        <span class="num">04</span>
+        <h2>노코드프로토타이핑</h2>
+        <span class="badge pending"><span class="dot"></span>준비중</span>
+      </a>
+      <a class="card" href="05_서비스기획/index.html">
+        <span class="num">05</span>
+        <h2>서비스기획</h2>
+        <span class="badge pending"><span class="dot"></span>준비중</span>
+      </a>
+      <a class="card" href="06_데이터ML/index.html">
+        <span class="num">06</span>
+        <h2>데이터ML</h2>
+        <span class="badge pending"><span class="dot"></span>준비중</span>
+      </a>
+      <a class="card" href="07_LLM_RAG_Agent/index.html">
+        <span class="num">07</span>
+        <h2>LLM_RAG_Agent</h2>
+        <span class="badge pending"><span class="dot"></span>준비중</span>
+      </a>
+      <a class="card" href="08_해커톤/index.html">
+        <span class="num">08</span>
+        <h2>해커톤</h2>
+        <span class="badge pending"><span class="dot"></span>준비중</span>
+      </a>
+    </div>
   </main>
+
+  <footer>class-html-2608 · frontierall</footer>
+
 </body>
 </html>
