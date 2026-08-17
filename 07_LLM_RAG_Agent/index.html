@@ -7,92 +7,87 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/static/pretendard.css">
 <style>
   :root {
-    --bg: #f6f6f9; --surface: #ffffff; --surface-hover: #eef0f5;
-    --border: #e2e4eb; --text: #16161b; --text-dim: #6b6b76;
-    --accent: #6c5ce7; --accent-soft: rgba(108,92,231,0.10);
-    --ok: #16a34a; --ok-soft: rgba(22,163,74,0.10);
-    --pending: #8a8a94; --pending-soft: rgba(17,17,17,0.045);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0b0b10; --surface: #15151d; --surface-hover: #1c1c26;
-      --border: #26262f; --text: #f2f2f5; --text-dim: #9b9ba8;
-      --accent: #8b7bff; --accent-soft: rgba(139,123,255,0.15);
-      --ok: #4ade80; --ok-soft: rgba(74,222,128,0.12);
-      --pending: #5c5c68; --pending-soft: rgba(255,255,255,0.04);
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0b0b10; --surface: #15151d; --surface-hover: #1c1c26;
-    --border: #26262f; --text: #f2f2f5; --text-dim: #9b9ba8;
-    --accent: #8b7bff; --accent-soft: rgba(139,123,255,0.15);
-    --ok: #4ade80; --ok-soft: rgba(74,222,128,0.12);
-    --pending: #5c5c68; --pending-soft: rgba(255,255,255,0.04);
+    --primary: #0066cc; --primary-focus: #0071e3;
+    --canvas: #ffffff; --parchment: #f5f5f7;
+    --black: #000000; --ink: #1d1d1f; --ink-80: #333333; --ink-48: #7a7a7a;
+    --hairline: #e0e0e0;
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+    margin: 0; background: var(--canvas); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
-    transition: background .2s, color .2s;
+    font-size: 17px; line-height: 1.47; letter-spacing: -0.374px;
   }
-  .topbar {
-    justify-content: space-between;
-    display: flex; align-items: center; gap: 10px;
-    padding: 14px 20px; border-bottom: 1px solid var(--border);
+  .global-nav {
+    position: sticky; top: 0; z-index: 20; height: 44px; background: var(--black);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
   }
-  .topbar a {
-    color: var(--text-dim); text-decoration: none; font-size: 13px;
-    padding: 6px 12px; border-radius: 999px; transition: background .15s, color .15s;
+  .global-nav .brand { color: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.12px; text-decoration: none; }
+  .global-nav .meta { color: rgba(255,255,255,0.72); font-size: 12px; letter-spacing: -0.12px; }
+  .sub-nav {
+    position: sticky; top: 44px; z-index: 19; height: 52px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+    background: rgba(245,245,247,0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
   }
-  .topbar a:hover { background: var(--surface-hover); color: var(--text); }
-  .theme-toggle {
-    all: unset; cursor: pointer; width: 28px; height: 28px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 999px; font-size: 13px; color: var(--text-dim);
-    transition: background .15s, color .15s;
+  .sub-nav .category { font-size: 21px; font-weight: 600; letter-spacing: 0.231px; color: var(--ink); text-decoration: none; }
+  .btn-primary {
+    display: inline-block; background: var(--primary); color: #fff; border: none;
+    border-radius: 9999px; padding: 8px 18px; font-size: 14px; font-family: inherit;
+    text-decoration: none; cursor: pointer; transition: transform .15s;
   }
-  .theme-toggle:hover { background: var(--surface-hover); color: var(--text); }
-  main { max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }
-  .num {
-    display: inline-block; font-size: 12px; font-weight: 700; color: var(--accent);
-    background: var(--accent-soft); padding: 3px 9px; border-radius: 999px; margin-bottom: 14px;
+  .btn-primary:active { transform: scale(0.95); }
+  .btn-primary:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
+
+  main.content { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+  .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
+  h1.headline { font-size: 40px; font-weight: 600; line-height: 1.10; letter-spacing: 0; margin: 0 0 14px; }
+  p.tagline { font-size: 28px; font-weight: 400; line-height: 1.14; letter-spacing: 0.196px; margin: 0 0 20px; color: var(--ink-80); }
+
+  section.block { margin-top: 56px; }
+  h3.section-label { font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin: 0 0 16px; }
+
+  ul.topics { list-style: none; margin: 0; padding: 0; }
+  ul.topics li { font-size: 17px; line-height: 1.47; letter-spacing: -0.374px; padding: 14px 0; border-top: 1px solid var(--hairline); }
+  ul.topics li:last-child { border-bottom: 1px solid var(--hairline); }
+
+  .utility-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+  a.utility-card {
+    display: block; background: var(--canvas); border: 1px solid var(--hairline);
+    border-radius: 18px; padding: 24px; text-decoration: none; color: var(--ink);
+    transition: border-color .15s;
   }
-  h1 { margin: 0 0 6px; font-size: 26px; letter-spacing: -0.02em; }
-  .goal { color: var(--text-dim); font-size: 14px; margin: 0 0 28px; }
-  section { margin-bottom: 32px; }
-  h2 { font-size: 14px; color: var(--text-dim); margin: 0 0 12px; font-weight: 600; }
-  ul.topics { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-  ul.topics li {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 12px 16px; font-size: 14px;
-  }
-  .materials { display: flex; flex-direction: column; gap: 8px; }
-  a.material {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 12px 16px; text-decoration: none; color: var(--text);
-    font-size: 14px; transition: border-color .15s, background .15s;
-  }
-  a.material:hover { border-color: var(--accent); background: var(--surface-hover); }
-  .empty {
-    color: var(--pending); font-size: 13px; background: var(--pending-soft);
-    border: 1px dashed var(--border); border-radius: 12px; padding: 16px; text-align: center;
-  }
+  a.utility-card:hover { border-color: var(--primary); }
+  a.utility-card .name { font-size: 17px; font-weight: 600; letter-spacing: -0.374px; margin-bottom: 6px; }
+  a.utility-card .meta { font-size: 14px; color: var(--ink-48); letter-spacing: -0.224px; }
+  .empty-note { font-size: 14px; color: var(--ink-48); letter-spacing: -0.224px; }
+
+  footer.site-footer { background: var(--parchment); color: var(--ink-80); padding: 64px 24px 32px; }
+  .footer-links { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px 32px; }
+  .footer-links a { display: block; font-size: 17px; line-height: 2.41; color: var(--ink-80); text-decoration: none; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-legal { max-width: 1000px; margin: 32px auto 0; padding-top: 16px; border-top: 1px solid var(--hairline); font-size: 12px; color: var(--ink-48); letter-spacing: -0.12px; }
 </style>
 </head>
 <body>
-  <nav class="topbar">
-    <a href="../index.html">← 전체 커리큘럼</a>
-    <button id="theme-toggle" class="theme-toggle" aria-label="테마 전환">🌙</button>
+  <nav class="global-nav">
+    <a class="brand" href="../index.html">class-html-2608</a>
+    <span class="meta">인공지능 심화(160H)</span>
   </nav>
-  <main>
-    <span class="num">PART 07 · 28H</span>
-    <h1>LLM_RAG_Agent</h1>
-    <p class="goal">LLM, RAG & AI Agent 개발 · 학습목표: 최신 AI 기술 실무 구현, LLM/RAG/Agent 개발 능력 확보</p>
+  <nav class="sub-nav">
+    <a class="category" href="#">07 LLM_RAG_Agent</a>
+    <a class="btn-primary" href="../index.html">전체 커리큘럼</a>
+  </nav>
 
-    <section>
-      <h2>학습 항목</h2>
+  <main class="content">
+    <span class="eyebrow">PART 07 · 28H</span>
+    <h1 class="headline">LLM_RAG_Agent</h1>
+    <p class="tagline">최신 AI 기술 실무 구현, LLM/RAG/Agent 개발 능력 확보</p>
+
+    <section class="block">
+      <h3 class="section-label">학습 항목</h3>
       <ul class="topics">
         <li>LLM API 활용 & 프롬프트 엔지니어링</li>
         <li>LangChain 기초 & 체인 구성</li>
@@ -102,33 +97,24 @@
       </ul>
     </section>
 
-    <section>
-      <h2>자료 (0)</h2>
-      <div class="materials">
-        <div class="empty">아직 등록된 HTML 교안이 없습니다.</div>
-      </div>
+    <section class="block">
+      <h3 class="section-label">자료</h3>
+      <p class="empty-note">아직 등록된 HTML 교안이 없습니다.</p>
     </section>
   </main>
 
-  <script>
-    (function () {
-      const root = document.documentElement;
-      const saved = localStorage.getItem('theme');
-      if (saved) root.setAttribute('data-theme', saved);
-      const btn = document.getElementById('theme-toggle');
-      function current() {
-        return root.getAttribute('data-theme') ||
-          (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      }
-      function paint() { btn.textContent = current() === 'dark' ? '☀️' : '🌙'; }
-      paint();
-      btn.addEventListener('click', () => {
-        const next = current() === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        paint();
-      });
-    })();
-  </script>
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="../01_오리엔테이션/index.html">01 오리엔테이션</a>
+      <a href="../02_바이브코딩/index.html">02 바이브코딩</a>
+      <a href="../03_UXUI디자인/index.html">03 UXUI디자인</a>
+      <a href="../04_노코드프로토타이핑/index.html">04 노코드프로토타이핑</a>
+      <a href="../05_서비스기획/index.html">05 서비스기획</a>
+      <a href="../06_데이터ML/index.html">06 데이터ML</a>
+      <a href="../07_LLM_RAG_Agent/index.html">07 LLM_RAG_Agent</a>
+      <a href="../08_해커톤/index.html">08 해커톤</a>
+    </div>
+    <div class="footer-legal">class-html-2608 · frontierall</div>
+  </footer>
 </body>
 </html>

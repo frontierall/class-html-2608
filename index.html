@@ -7,319 +7,238 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/static/pretendard.css">
 <style>
   :root {
-    --bg: #f6f6f9;
-    --surface: #ffffff;
-    --surface-hover: #eef0f5;
-    --border: #e2e4eb;
-    --text: #16161b;
-    --text-dim: #6b6b76;
-    --accent: #6c5ce7;
-    --accent-soft: rgba(108, 92, 231, 0.10);
-    --ok: #16a34a;
-    --ok-soft: rgba(22, 163, 74, 0.10);
-    --pending: #8a8a94;
-    --pending-soft: rgba(17, 17, 17, 0.045);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0b0b10;
-      --surface: #15151d;
-      --surface-hover: #1c1c26;
-      --border: #26262f;
-      --text: #f2f2f5;
-      --text-dim: #9b9ba8;
-      --accent: #8b7bff;
-      --accent-soft: rgba(139, 123, 255, 0.15);
-      --ok: #4ade80;
-      --ok-soft: rgba(74, 222, 128, 0.12);
-      --pending: #5c5c68;
-      --pending-soft: rgba(255, 255, 255, 0.04);
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0b0b10;
-    --surface: #15151d;
-    --surface-hover: #1c1c26;
-    --border: #26262f;
-    --text: #f2f2f5;
-    --text-dim: #9b9ba8;
-    --accent: #8b7bff;
-    --accent-soft: rgba(139, 123, 255, 0.15);
-    --ok: #4ade80;
-    --ok-soft: rgba(74, 222, 128, 0.12);
-    --pending: #5c5c68;
-    --pending-soft: rgba(255, 255, 255, 0.04);
+    --primary: #0066cc;
+    --primary-focus: #0071e3;
+    --primary-on-dark: #2997ff;
+    --canvas: #ffffff;
+    --parchment: #f5f5f7;
+    --pearl: #fafafc;
+    --tile-1: #272729;
+    --tile-2: #2a2a2c;
+    --tile-3: #252527;
+    --black: #000000;
+    --ink: #1d1d1f;
+    --on-dark: #ffffff;
+    --muted-on-dark: #cccccc;
+    --ink-80: #333333;
+    --ink-48: #7a7a7a;
+    --hairline: #e0e0e0;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
-    transition: background .2s, color .2s;
-  }
-  header.hero {
-    padding: 48px 24px 28px;
-    text-align: center;
-  }
-  header.hero h1 {
-    margin: 0 0 8px;
-    font-size: clamp(24px, 4vw, 32px);
-    letter-spacing: -0.02em;
-  }
-  header.hero p {
-    margin: 0;
-    color: var(--text-dim);
-    font-size: 14px;
-  }
-
-  .topbar-row {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--bg);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-    padding-right: 12px;
-  }
-  nav.tabbar {
-    display: flex;
-    gap: 4px;
-    overflow-x: auto;
-    padding: 10px 16px;
-    scrollbar-width: none;
-    flex: 1;
-    min-width: 0;
-  }
-  nav.tabbar::-webkit-scrollbar { display: none; }
-  .theme-toggle {
-    all: unset;
-    flex: 0 0 auto;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    font-size: 14px;
-    color: var(--text-dim);
-    transition: background .15s, color .15s;
-  }
-  .theme-toggle:hover { background: var(--surface-hover); color: var(--text); }
-  nav.tabbar button {
-    all: unset;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    color: var(--text-dim);
-    font-size: 13px;
-    white-space: nowrap;
-    transition: background 0.15s, color 0.15s;
-  }
-  nav.tabbar button .num {
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 12px;
-  }
-  nav.tabbar button:hover {
-    background: var(--surface-hover);
-    color: var(--text);
-  }
-  nav.tabbar button.active {
-    background: var(--accent-soft);
-    color: var(--text);
-  }
-  nav.tabbar button.active .num { color: var(--accent); }
-
-  main {
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 32px 20px 64px;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 14px;
-  }
-  .grid.filtered {
-    grid-template-columns: minmax(0, 420px);
-    justify-content: center;
-  }
-  a.card {
-    display: block;
-    padding: 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    text-decoration: none;
-    color: var(--text);
-    transition: transform 0.15s, border-color 0.15s, background 0.15s;
-  }
-  a.card:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent);
-    background: var(--surface-hover);
-  }
-  a.card.hidden { display: none; }
-  .card .num {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 3px 9px;
-    border-radius: 999px;
-    margin-bottom: 12px;
-  }
-  .card h2 {
-    margin: 0 0 14px;
     font-size: 17px;
-    letter-spacing: -0.01em;
-  }
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    padding: 4px 10px;
-    border-radius: 999px;
-  }
-  .badge.ok { color: var(--ok); background: var(--ok-soft); }
-  .badge.pending { color: var(--pending); background: var(--pending-soft); }
-  .badge .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
   }
 
-  footer {
-    text-align: center;
-    padding: 24px;
-    color: var(--text-dim);
-    font-size: 12px;
+  /* ---- global nav ---- */
+  .global-nav {
+    position: sticky; top: 0; z-index: 20; height: 44px;
+    background: var(--black);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 22px;
+  }
+  .global-nav .brand {
+    color: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.12px;
+    text-decoration: none;
+  }
+  .global-nav .meta { color: rgba(255,255,255,0.72); font-size: 12px; letter-spacing: -0.12px; }
+
+  /* ---- buttons ---- */
+  .btn-primary {
+    display: inline-block; background: var(--primary); color: #fff;
+    border: none; border-radius: 9999px; padding: 11px 22px;
+    font-size: 17px; font-family: inherit; text-decoration: none;
+    cursor: pointer; transition: transform .15s;
+  }
+  .btn-primary:active { transform: scale(0.95); }
+  .btn-primary:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
+  .btn-secondary-pill {
+    display: inline-block; background: transparent; color: var(--primary);
+    border: 1px solid var(--primary); border-radius: 9999px; padding: 10px 21px;
+    font-size: 17px; text-decoration: none; cursor: pointer; transition: transform .15s;
+  }
+  .btn-secondary-pill:active { transform: scale(0.95); }
+  .caption-note { font-size: 14px; letter-spacing: -0.224px; }
+
+  /* ---- tiles ---- */
+  .tile { padding: 80px 24px; text-align: center; }
+  .tile.light { background: var(--canvas); color: var(--ink); }
+  .tile.parchment { background: var(--parchment); color: var(--ink); }
+  .tile.dark1 { background: var(--tile-1); color: #fff; }
+  .tile.dark2 { background: var(--tile-2); color: #fff; }
+  .tile.dark3 { background: var(--tile-3); color: #fff; }
+  .tile-inner { max-width: 640px; margin: 0 auto; }
+  .eyebrow {
+    display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px;
+    color: var(--ink-48); margin-bottom: 12px;
+  }
+  .tile.dark1 .eyebrow, .tile.dark2 .eyebrow, .tile.dark3 .eyebrow { color: var(--muted-on-dark); }
+  .tile h1.hero-headline {
+    font-size: 56px; font-weight: 600; line-height: 1.07; letter-spacing: -0.28px; margin: 0 0 16px;
+  }
+  .tile h2.tile-headline {
+    font-size: 40px; font-weight: 600; line-height: 1.10; letter-spacing: 0; margin: 0 0 14px;
+  }
+  .tile p.tile-tagline {
+    font-size: 28px; font-weight: 400; line-height: 1.14; letter-spacing: 0.196px; margin: 0 0 28px;
+  }
+  .tile-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; align-items: center; }
+  .tile .muted-note { color: var(--ink-48); }
+  .tile.dark1 .muted-note, .tile.dark2 .muted-note, .tile.dark3 .muted-note { color: var(--muted-on-dark); }
+
+  /* ---- footer ---- */
+  footer.site-footer { background: var(--parchment); color: var(--ink-80); padding: 64px 24px 32px; }
+  .footer-links {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px 32px;
+  }
+  .footer-links a {
+    display: block; font-size: 17px; line-height: 2.41; color: var(--ink-80); text-decoration: none;
+  }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-legal {
+    max-width: 1000px; margin: 32px auto 0; padding-top: 16px; border-top: 1px solid var(--hairline);
+    font-size: 12px; color: var(--ink-48); letter-spacing: -0.12px;
+  }
+
+  @media (max-width: 640px) {
+    .tile { padding: 48px 20px; }
+    .tile h1.hero-headline { font-size: 34px; }
+    .tile h2.tile-headline { font-size: 28px; }
+    .tile p.tile-tagline { font-size: 20px; }
   }
 </style>
 </head>
 <body>
 
-  <div class="topbar-row">
-    <nav class="tabbar" id="tabbar">
-      <button data-part="all" class="active">전체</button>
-      <button data-part="01"><span class="num">01</span> 오리엔테이션</button>
-      <button data-part="02"><span class="num">02</span> 바이브코딩</button>
-      <button data-part="03"><span class="num">03</span> UXUI디자인</button>
-      <button data-part="04"><span class="num">04</span> 노코드프로토타이핑</button>
-      <button data-part="05"><span class="num">05</span> 서비스기획</button>
-      <button data-part="06"><span class="num">06</span> 데이터ML</button>
-      <button data-part="07"><span class="num">07</span> LLM_RAG_Agent</button>
-      <button data-part="08"><span class="num">08</span> 해커톤</button>
-    </nav>
-    <button id="theme-toggle" class="theme-toggle" aria-label="테마 전환">🌙</button>
-  </div>
+  <nav class="global-nav">
+    <a class="brand" href="index.html">class-html-2608</a>
+    <span class="meta">인공지능 심화(160H)</span>
+  </nav>
 
-  <header class="hero">
-    <h1>class-html-2608</h1>
-    <p>인공지능 심화(160H) · 공통 소스 HTML 공유 저장소</p>
-  </header>
-
-  <main>
-    <div class="grid" id="grid">
-      <a class="card" data-part="01" href="01_오리엔테이션/index.html">
-        <span class="num">01</span>
-        <h2>오리엔테이션</h2>
-        <span class="badge pending"><span class="dot"></span>준비중</span>
-      </a>
-      <a class="card" data-part="02" href="02_바이브코딩/index.html">
-        <span class="num">02</span>
-        <h2>바이브코딩</h2>
-        <span class="badge ok"><span class="dot"></span>자료 1개</span>
-      </a>
-      <a class="card" data-part="03" href="03_UXUI디자인/index.html">
-        <span class="num">03</span>
-        <h2>UXUI디자인</h2>
-        <span class="badge pending"><span class="dot"></span>준비중</span>
-      </a>
-      <a class="card" data-part="04" href="04_노코드프로토타이핑/index.html">
-        <span class="num">04</span>
-        <h2>노코드프로토타이핑</h2>
-        <span class="badge pending"><span class="dot"></span>준비중</span>
-      </a>
-      <a class="card" data-part="05" href="05_서비스기획/index.html">
-        <span class="num">05</span>
-        <h2>서비스기획</h2>
-        <span class="badge pending"><span class="dot"></span>준비중</span>
-      </a>
-      <a class="card" data-part="06" href="06_데이터ML/index.html">
-        <span class="num">06</span>
-        <h2>데이터ML</h2>
-        <span class="badge pending"><span class="dot"></span>준비중</span>
-      </a>
-      <a class="card" data-part="07" href="07_LLM_RAG_Agent/index.html">
-        <span class="num">07</span>
-        <h2>LLM_RAG_Agent</h2>
-        <span class="badge pending"><span class="dot"></span>준비중</span>
-      </a>
-      <a class="card" data-part="08" href="08_해커톤/index.html">
-        <span class="num">08</span>
-        <h2>해커톤</h2>
-        <span class="badge pending"><span class="dot"></span>준비중</span>
-      </a>
+  <section class="tile light">
+    <div class="tile-inner">
+      <span class="eyebrow">공통 소스 HTML 공유 저장소</span>
+      <h1 class="hero-headline">class-html-2608</h1>
+      <p class="tile-tagline">인공지능 심화(160H) · 2026.08.26&nbsp;–&nbsp;11.11</p>
     </div>
-  </main>
+  </section>
 
-  <footer>class-html-2608 · frontierall</footer>
+  <section class="tile parchment">
+    <div class="tile-inner">
+      <span class="eyebrow">PART 01 · 8H</span>
+      <h2 class="tile-headline">오리엔테이션</h2>
+      <p class="tile-tagline">과정 이해, 팀 빌딩, AI 시대 마인드셋 형성</p>
+      <div class="tile-ctas">
+        <a class="btn-primary" href="01_오리엔테이션/index.html">자세히 보기</a>
+        <span class="caption-note muted-note">자료 준비중</span>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    (function () {
-      const root = document.documentElement;
-      const saved = localStorage.getItem('theme');
-      if (saved) root.setAttribute('data-theme', saved);
-      const btn = document.getElementById('theme-toggle');
-      function current() {
-        return root.getAttribute('data-theme') ||
-          (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      }
-      function paint() { btn.textContent = current() === 'dark' ? '☀️' : '🌙'; }
-      paint();
-      btn.addEventListener('click', () => {
-        const next = current() === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        paint();
-      });
-    })();
+  <section class="tile dark1">
+    <div class="tile-inner">
+      <span class="eyebrow">PART 02 · 20H</span>
+      <h2 class="tile-headline">바이브코딩</h2>
+      <p class="tile-tagline">AI와 협업하는 개발의 기초 확립, Vibe Coding 체득</p>
+      <div class="tile-ctas">
+        <a class="btn-primary" href="02_바이브코딩/index.html">자세히 보기</a>
+        <a class="btn-secondary-pill" href="02_바이브코딩/claude-code-new-project/index.html">자료 열기</a>
+      </div>
+    </div>
+  </section>
 
-    const tabs = document.querySelectorAll('#tabbar button');
-    const cards = document.querySelectorAll('#grid .card');
-    const grid = document.getElementById('grid');
+  <section class="tile light">
+    <div class="tile-inner">
+      <span class="eyebrow">PART 03 · 12H</span>
+      <h2 class="tile-headline">UXUI디자인</h2>
+      <p class="tile-tagline">사용자 중심 설계 능력 확보, AI 디자인 도구 활용</p>
+      <div class="tile-ctas">
+        <a class="btn-primary" href="03_UXUI디자인/index.html">자세히 보기</a>
+        <span class="caption-note muted-note">자료 준비중</span>
+      </div>
+    </div>
+  </section>
 
-    function applyFilter(part) {
-      tabs.forEach(t => t.classList.toggle('active', t.dataset.part === part));
-      cards.forEach(c => c.classList.toggle('hidden', part !== 'all' && c.dataset.part !== part));
-      grid.classList.toggle('filtered', part !== 'all');
-    }
+  <section class="tile dark2">
+    <div class="tile-inner">
+      <span class="eyebrow">PART 04 · 20H</span>
+      <h2 class="tile-headline">노코드프로토타이핑</h2>
+      <p class="tile-tagline">프롬프트만으로 개발, 빠른 MVP 구현</p>
+      <div class="tile-ctas">
+        <a class="btn-primary" href="04_노코드프로토타이핑/index.html">자세히 보기</a>
+        <span class="caption-note muted-note">자료 준비중</span>
+      </div>
+    </div>
+  </section>
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const part = tab.dataset.part;
-        history.replaceState(null, '', part === 'all' ? location.pathname : `#${part}`);
-        applyFilter(part);
-      });
-    });
+  <section class="tile parchment">
+    <div class="tile-inner">
+      <span class="eyebrow">PART 05 · 16H</span>
+      <h2 class="tile-headline">서비스기획</h2>
+      <p class="tile-tagline">서비스 기획 역량 확보, 비즈니스 관점에서 프로젝트 방향 설정</p>
+      <div class="tile-ctas">
+        <a class="btn-primary" href="05_서비스기획/index.html">자세히 보기</a>
+        <span class="caption-note muted-note">자료 준비중</span>
+      </div>
+    </div>
+  </section>
 
-    const initial = location.hash.replace('#', '');
-    applyFilter(initial && [...tabs].some(t => t.dataset.part === initial) ? initial : 'all');
-  </script>
+  <section class="tile dark3">
+    <div class="tile-inner">
+      <span class="eyebrow">PART 06 · 28H</span>
+      <h2 class="tile-headline">데이터ML</h2>
+      <p class="tile-tagline">AI 기술의 이론적 기반 확립, 데이터 분석 및 ML 모델 구축</p>
+      <div class="tile-ctas">
+        <a class="btn-primary" href="06_데이터ML/index.html">자세히 보기</a>
+        <span class="caption-note muted-note">자료 준비중</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="tile light">
+    <div class="tile-inner">
+      <span class="eyebrow">PART 07 · 28H</span>
+      <h2 class="tile-headline">LLM_RAG_Agent</h2>
+      <p class="tile-tagline">최신 AI 기술 실무 구현, LLM/RAG/Agent 개발 능력 확보</p>
+      <div class="tile-ctas">
+        <a class="btn-primary" href="07_LLM_RAG_Agent/index.html">자세히 보기</a>
+        <span class="caption-note muted-note">자료 준비중</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="tile dark1">
+    <div class="tile-inner">
+      <span class="eyebrow">PART 08 · 28H</span>
+      <h2 class="tile-headline">해커톤</h2>
+      <p class="tile-tagline">모든 역량 통합, 실제 서비스 런칭 및 IR 피칭</p>
+      <div class="tile-ctas">
+        <a class="btn-primary" href="08_해커톤/index.html">자세히 보기</a>
+        <span class="caption-note muted-note">자료 준비중</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="01_오리엔테이션/index.html">01 오리엔테이션</a>
+      <a href="02_바이브코딩/index.html">02 바이브코딩</a>
+      <a href="03_UXUI디자인/index.html">03 UXUI디자인</a>
+      <a href="04_노코드프로토타이핑/index.html">04 노코드프로토타이핑</a>
+      <a href="05_서비스기획/index.html">05 서비스기획</a>
+      <a href="06_데이터ML/index.html">06 데이터ML</a>
+      <a href="07_LLM_RAG_Agent/index.html">07 LLM_RAG_Agent</a>
+      <a href="08_해커톤/index.html">08 해커톤</a>
+    </div>
+    <div class="footer-legal">class-html-2608 · frontierall</div>
+  </footer>
 
 </body>
 </html>
