@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이슈 로그 · class-html-2608</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root {
+    --primary: #0066cc; --primary-focus: #0071e3;
+    --canvas: #ffffff; --parchment: #f5f5f7;
+    --black: #000000; --ink: #1d1d1f; --ink-80: #333333; --ink-48: #7a7a7a;
+    --hairline: #e0e0e0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--canvas); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px; line-height: 1.47; letter-spacing: -0.374px;
+  }
+  .global-nav {
+    position: sticky; top: 0; z-index: 20; height: 44px; background: var(--black);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+  }
+  .global-nav .brand { color: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.12px; text-decoration: none; }
+  .global-nav .meta { color: rgba(255,255,255,0.72); font-size: 12px; letter-spacing: -0.12px; }
+  .sub-nav {
+    position: sticky; top: 44px; z-index: 19; height: 52px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+    background: rgba(245,245,247,0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .sub-nav .category { font-size: 21px; font-weight: 600; letter-spacing: 0.231px; color: var(--ink); text-decoration: none; }
+  .btn-primary {
+    display: inline-block; background: var(--primary); color: #fff; border: none;
+    border-radius: 9999px; padding: 8px 18px; font-size: 14px; font-family: inherit;
+    text-decoration: none; cursor: pointer; transition: transform .15s;
+  }
+  .btn-primary:active { transform: scale(0.95); }
+  .btn-primary:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
+
+  main.content { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+  .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
+  h1.headline { font-size: 40px; font-weight: 600; line-height: 1.10; letter-spacing: 0; margin: 0 0 14px; }
+  p.tagline { font-size: 22px; font-weight: 400; line-height: 1.3; letter-spacing: 0.196px; margin: 0 0 20px; color: var(--ink-80); }
+
+  .utility-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 40px; }
+  a.utility-card {
+    display: block; background: var(--canvas); border: 1px solid var(--hairline);
+    border-radius: 18px; padding: 20px; text-decoration: none; color: var(--ink);
+    transition: border-color .15s;
+  }
+  a.utility-card:hover { border-color: var(--primary); }
+  a.utility-card .tag {
+    display: inline-block; font-size: 11px; font-weight: 700; color: var(--primary);
+    background: rgba(0,102,204,0.08); padding: 2px 8px; border-radius: 999px; margin-bottom: 10px;
+  }
+  a.utility-card .name { font-size: 17px; font-weight: 600; letter-spacing: -0.374px; margin-bottom: 6px; }
+  a.utility-card .meta { font-size: 14px; color: var(--ink-48); letter-spacing: -0.224px; }
+
+  footer.site-footer { background: var(--parchment); color: var(--ink-80); padding: 64px 24px 32px; }
+  .footer-links { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px 32px; }
+  .footer-links a { display: block; font-size: 17px; line-height: 2.41; color: var(--ink-80); text-decoration: none; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-legal { max-width: 1000px; margin: 32px auto 0; padding-top: 16px; border-top: 1px solid var(--hairline); font-size: 12px; color: var(--ink-48); letter-spacing: -0.12px; }
+
+  @media (max-width: 640px) {
+    main.content { padding: 48px 20px 72px; }
+    h1.headline { font-size: 28px; }
+    p.tagline { font-size: 17px; }
+    .sub-nav { padding: 0 16px; }
+    .sub-nav .category { font-size: 17px; }
+    .footer-links { grid-template-columns: repeat(2, 1fr); gap: 4px 20px; }
+  }
+  @media (max-width: 380px) {
+    .global-nav .meta { display: none; }
+  }
+</style>
+</head>
+<body>
+  <nav class="global-nav">
+    <a class="brand" href="../index.html">class-html-2608</a>
+    <span class="meta">인공지능 심화(160H)</span>
+  </nav>
+  <nav class="sub-nav">
+    <a class="category" href="#">이슈 로그</a>
+    <a class="btn-primary" href="../index.html">전체 커리큘럼</a>
+  </nav>
+
+  <main class="content">
+    <span class="eyebrow">저장소 운영 기록</span>
+    <h1 class="headline">이슈 로그</h1>
+    <p class="tagline">수업·저장소를 만들고 운영하며 겪은 문제와 해결 방법을 남깁니다. 같은 문제를 반복해서 조사하지 않는 것이 목표입니다.</p>
+
+    <div class="utility-grid">
+      <a class="utility-card" href="google-provider-not-enabled/index.html">
+        <span class="tag">Supabase · Auth</span>
+        <div class="name">Google 로그인 "provider is not enabled"</div>
+        <div class="meta">ClassShelf-codex-2608 · Supabase Google Provider 미활성화</div>
+      </a>
+      <a class="utility-card" href="github-pages-private-repo/index.html">
+        <span class="tag">GitHub Pages</span>
+        <div class="name">GitHub Pages가 Private 저장소에서 동작하지 않음</div>
+        <div class="meta">Public 전환 후 Pages 활성화로 해결</div>
+      </a>
+      <a class="utility-card" href="html-encoding-mojibake/index.html">
+        <span class="tag">HTML · 인코딩</span>
+        <div class="name">교안 HTML에 문서 구조가 없어 한글이 깨짐</div>
+        <div class="meta">DOCTYPE·charset 없는 조각 HTML → 완전한 문서로 재작성</div>
+      </a>
+      <a class="utility-card" href="sensitive-screenshot-exposure/index.html">
+        <span class="tag">보안 · Git</span>
+        <div class="name">교안 폴더에 민감한 원본 스크린샷이 함께 있을 위험</div>
+        <div class="meta">이미지 블러 확인 + .gitignore 제외</div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="../01_오리엔테이션/index.html">01 오리엔테이션</a>
+      <a href="../02_바이브코딩/index.html">02 바이브코딩</a>
+      <a href="../03_UXUI디자인/index.html">03 UXUI디자인</a>
+      <a href="../04_노코드프로토타이핑/index.html">04 노코드프로토타이핑</a>
+      <a href="../05_서비스기획/index.html">05 서비스기획</a>
+      <a href="../06_데이터ML/index.html">06 데이터ML</a>
+      <a href="../07_LLM_RAG_Agent/index.html">07 LLM_RAG_Agent</a>
+      <a href="../08_해커톤/index.html">08 해커톤</a>
+    </div>
+    <div class="footer-legal">class-html-2608 · frontierall</div>
+  </footer>
+</body>
+</html>

@@ -49,7 +49,7 @@
 
   /* ---- grid ---- */
   main { flex: 1 1 auto; display: flex; align-items: center; padding: 8px 24px; }
-  .grid { max-width: 1040px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .grid { max-width: 860px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   a.card {
     display: flex; flex-direction: column; justify-content: space-between; min-height: 128px;
     background: var(--canvas); border: 1px solid var(--hairline);
@@ -141,13 +141,18 @@
         <h2>해커톤</h2>
         <span class="status pending"><span class="dot"></span>준비중</span>
       </a>
+      <a class="card" href="이슈로그/index.html">
+        <span class="num">ISSUE</span>
+        <h2>이슈 로그</h2>
+        <span class="status ready"><span class="dot"></span>4건 기록</span>
+      </a>
     </div>
   </main>
 
   <footer class="site-footer">
     <a href="index.html">class-html-2608</a>
     <span class="sep">·</span>
-    <a href="이슈-로그/index.html">이슈 로그</a>
+    <a href="이슈로그/index.html">이슈 로그</a>
     <span class="sep">·</span>
     <span>frontierall</span>
   </footer>

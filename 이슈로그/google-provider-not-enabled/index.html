@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google 로그인 "provider is not enabled" · class-html-2608</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root {
+    --primary: #0066cc; --primary-focus: #0071e3;
+    --canvas: #ffffff; --parchment: #f5f5f7; --pearl: #fafafc;
+    --black: #000000; --ink: #1d1d1f; --ink-80: #333333; --ink-48: #7a7a7a;
+    --hairline: #e0e0e0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--canvas); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px; line-height: 1.47; letter-spacing: -0.374px;
+  }
+  .global-nav {
+    position: sticky; top: 0; z-index: 20; height: 44px; background: var(--black);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+  }
+  .global-nav .brand { color: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.12px; text-decoration: none; }
+  .global-nav .meta { color: rgba(255,255,255,0.72); font-size: 12px; letter-spacing: -0.12px; }
+  .sub-nav {
+    position: sticky; top: 44px; z-index: 19; height: 52px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+    background: rgba(245,245,247,0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .sub-nav .category { font-size: 21px; font-weight: 600; letter-spacing: 0.231px; color: var(--ink); text-decoration: none; }
+  .btn-primary {
+    display: inline-block; background: var(--primary); color: #fff; border: none;
+    border-radius: 9999px; padding: 8px 18px; font-size: 14px; font-family: inherit;
+    text-decoration: none; cursor: pointer; transition: transform .15s;
+  }
+  .btn-primary:active { transform: scale(0.95); }
+  .btn-primary:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
+
+  article { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+  .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
+  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 28px; }
+  h2 {
+    font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px;
+    margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--hairline);
+  }
+  p { color: var(--ink); font-size: 15px; line-height: 1.6; }
+  ol, ul { font-size: 15px; line-height: 1.6; }
+  li { margin-bottom: 8px; }
+  strong { color: var(--ink); }
+
+  code {
+    background: var(--pearl); border: 1px solid var(--hairline);
+    border-radius: 5px; padding: 2px 6px; font-size: 13.5px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  pre {
+    background: var(--pearl); border: 1px solid var(--hairline);
+    border-radius: 8px; padding: 16px 18px; overflow-x: auto;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: 13.5px; line-height: 1.6; }
+
+  blockquote {
+    margin: 20px 0; padding: 4px 0 4px 20px; border-left: 2px solid var(--hairline);
+  }
+  blockquote p { margin: 0; font-size: 14px; letter-spacing: -0.224px; color: var(--ink-80); }
+
+  @media (max-width: 640px) {
+    article { padding: 48px 20px 72px; }
+    h1 { font-size: 26px; }
+    .sub-nav { padding: 0 16px; }
+    .sub-nav .category { font-size: 17px; }
+  }
+  @media (max-width: 380px) {
+    .global-nav .meta { display: none; }
+  }
+</style>
+</head>
+<body>
+  <nav class="global-nav">
+    <a class="brand" href="../../index.html">class-html-2608</a>
+    <span class="meta">인공지능 심화(160H)</span>
+  </nav>
+  <nav class="sub-nav">
+    <a class="category" href="../index.html">이슈 로그</a>
+    <a class="btn-primary" href="../../index.html">전체 커리큘럼</a>
+  </nav>
+
+  <article>
+
+<span class="eyebrow">Supabase · Google OAuth</span>
+<h1>Google 로그인 시 "Unsupported provider: provider is not enabled"</h1>
+
+<h2>증상</h2>
+<p>로그인 화면에서 "Google로 로그인" 버튼을 눌렀을 때 아래 오류가 발생했다.</p>
+<pre><code>{"code":400,"error_code":"validation_failed","msg":"Unsupported provider: provider is not enabled"}</code></pre>
+
+<h2>원인</h2>
+<p>앱 코드(<code>signInWithGoogle</code> 서버 액션, <code>/auth/callback</code> 라우트, 로그인 페이지 버튼)는 이미 배포되어 있었지만, <strong>Supabase Auth 프로젝트 설정에서 Google Provider가 활성화되지 않은 상태</strong>였다. Supabase는 각 OAuth Provider(Google, GitHub 등)를 프로젝트별로 별도 활성화해야 하며, 비활성 상태에서 <code>signInWithOAuth({ provider: "google" })</code>를 호출하면 이 오류를 반환한다.</p>
+<p>Google Provider를 쓰려면 Google Cloud Console에서 발급한 OAuth 클라이언트(Client ID·Secret)가 필요하다 — 이건 Supabase나 Vercel API로 대신 만들 수 없고, 사용자가 Google Cloud Console에서 직접 발급해야 한다.</p>
+
+<h2>해결 순서</h2>
+<ol>
+<li><strong>Google Cloud Console에서 OAuth 클라이언트 생성</strong>
+  <ul>
+    <li><code>https://console.cloud.google.com/apis/credentials</code></li>
+    <li>OAuth 동의 화면 구성 (User Type: 외부)</li>
+    <li>사용자 인증 정보 만들기 → OAuth 클라이언트 ID → 애플리케이션 유형: 웹 애플리케이션</li>
+    <li><strong>승인된 리디렉션 URI</strong>에 Supabase의 고정 콜백 URL 등록:
+      <pre><code>https://{project-ref}.supabase.co/auth/v1/callback</code></pre>
+    </li>
+  </ul>
+</li>
+<li><strong>Supabase Auth 설정 확인</strong> (필드명 확인 후 값 채우기)
+  <p>먼저 현재 상태를 확인한다.</p>
+  <pre><code>curl -s "https://api.supabase.com/v1/projects/{project-ref}/config/auth" \
+  -H "Authorization: Bearer {supabase-access-token}" \
+  | jq '{external_google_enabled, external_google_client_id, external_google_secret}'</code></pre>
+</li>
+<li><strong>Management API로 Provider 활성화</strong>
+  <pre><code>curl -X PATCH "https://api.supabase.com/v1/projects/{project-ref}/config/auth" \
+  -H "Authorization: Bearer {supabase-access-token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "external_google_enabled": true,
+    "external_google_client_id": "{google-oauth-client-id}",
+    "external_google_secret": "{google-oauth-client-secret}"
+  }'</code></pre>
+  <p>응답의 <code>external_google_secret</code>은 평문이 아니라 암호화된 해시로 표시된다 — 정상이다.</p>
+</li>
+<li><strong>동작 검증</strong> (브라우저 없이 서버 사이드에서 먼저 확인 가능)
+  <pre><code>curl -sD - -o /dev/null \
+  "https://{project-ref}.supabase.co/auth/v1/authorize?provider=google&redirect_to={site-url}/auth/callback" \
+  -H "apikey: {anon-key}"</code></pre>
+  <p><code>302</code> 응답과 <code>location: https://accounts.google.com/o/oauth2/v2/auth?...</code> 헤더가 나오면 Provider가 정상 활성화된 것이다. 이 단계에서 <code>redirect_uri</code> 파라미터가 1번에서 Google Cloud Console에 등록한 값과 정확히 일치하는지 반드시 대조한다 — 다르면 Google이 <code>redirect_uri_mismatch</code> 오류로 막는다.</p>
+</li>
+<li><strong>브라우저에서 실제 로그인 확인</strong>
+  <p>Production 로그인 페이지에서 버튼을 눌러 Google 계정 선택 → 동의 → 앱으로 정상 리다이렉트되는지 확인.</p>
+</li>
+</ol>
+
+<h2>함께 확인해야 하는 것: 계정 자동 연결</h2>
+<p>기존에 이메일/비밀번호로 가입되어 있던 이메일과 <strong>같은 이메일</strong>로 Google 로그인을 하면, Supabase가 두 로그인 수단(<code>email</code>, <code>google</code>)을 <strong>자동으로 같은 사용자(같은 <code>auth.users.id</code>)에 연결</strong>한다. 즉 이미 <code>admin</code> 권한이 부여된 계정이라면 Google로 로그인해도 별도 승격 작업 없이 그대로 관리자 권한이 유지된다.</p>
+<pre><code>select provider, user_id from auth.identities where user_id = '{user-id}';
+-- email, google 두 provider가 같은 user_id로 묶여 있으면 정상 연결된 것</code></pre>
+
+<h2>재발 방지</h2>
+<ul>
+<li>새 OAuth Provider(GitHub, Kakao 등)를 추가할 때도 동일하게 <strong>"앱 코드 배포"와 "Supabase Provider 활성화"가 별개 작업</strong>이라는 점을 기억한다. 코드만 배포하고 Provider 활성화를 빠뜨리면 이 오류가 재현된다.</li>
+<li>Provider 활성화에 필요한 Client ID/Secret은 절대 저장소나 문서에 평문으로 기록하지 않는다. 값 전달은 사용자와의 대화로만 하고, 커밋 전 <code>git diff --cached</code>로 시크릿이 섞이지 않았는지 확인한다.</li>
+</ul>
+
+<blockquote>
+<p>이 교안과 함께 보면 좋습니다: <a href="../../02_바이브코딩/claude-code-google-login/index.html">Claude Code로 구글 로그인 구현하기</a> — Google Cloud Console에서 OAuth 클라이언트를 발급하는 화면 흐름을 다룹니다.</p>
+</blockquote>
+
+  </article>
+</body>
+</html>
