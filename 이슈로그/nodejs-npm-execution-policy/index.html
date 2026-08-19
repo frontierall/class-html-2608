@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Node.js 설치 후 PowerShell에서 npm 실행 불가 · AI 프로덕트 마스터</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root {
+    --primary: #0066cc; --primary-focus: #0071e3;
+    --canvas: #ffffff; --parchment: #f5f5f7; --pearl: #fafafc;
+    --black: #000000; --ink: #1d1d1f; --ink-80: #333333; --ink-48: #7a7a7a;
+    --hairline: #e0e0e0;
+    --warn-bg: #fff8e6; --warn-line: #f0d48a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--canvas); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px; line-height: 1.47; letter-spacing: -0.374px;
+  }
+  .global-nav {
+    position: sticky; top: 0; z-index: 20; height: 44px; background: var(--black);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+  }
+  .global-nav .brand { color: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.12px; text-decoration: none; }
+  .global-nav .meta { color: rgba(255,255,255,0.72); font-size: 12px; letter-spacing: -0.12px; }
+  .sub-nav {
+    position: sticky; top: 44px; z-index: 19; height: 52px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+    background: rgba(245,245,247,0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .sub-nav .category { font-size: 21px; font-weight: 600; letter-spacing: 0.231px; color: var(--ink); text-decoration: none; }
+  .btn-primary {
+    display: inline-block; background: var(--primary); color: #fff; border: none;
+    border-radius: 9999px; padding: 8px 18px; font-size: 14px; font-family: inherit;
+    text-decoration: none; cursor: pointer; transition: transform .15s;
+  }
+  .btn-primary:active { transform: scale(0.95); }
+  .btn-primary:focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
+
+  article { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+  .eyebrow { display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; color: var(--ink-48); margin-bottom: 12px; }
+  h1 { font-size: 34px; font-weight: 600; line-height: 1.14; letter-spacing: 0; margin: 0 0 12px; }
+  .source {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-48);
+    letter-spacing: -0.12px; background: var(--pearl); border: 1px solid var(--hairline);
+    padding: 3px 10px; border-radius: 999px; margin: 0 0 32px;
+  }
+  h2 {
+    font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px;
+    margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--hairline);
+  }
+  h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.374px; margin: 28px 0 8px; }
+  p { color: var(--ink); font-size: 15px; line-height: 1.6; }
+  ol, ul { font-size: 15px; line-height: 1.6; }
+  li { margin-bottom: 8px; }
+  strong { color: var(--ink); }
+
+  code {
+    background: var(--pearl); border: 1px solid var(--hairline);
+    border-radius: 5px; padding: 2px 6px; font-size: 13.5px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  pre {
+    background: var(--pearl); border: 1px solid var(--hairline);
+    border-radius: 8px; padding: 16px 18px; overflow-x: auto;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: 13.5px; line-height: 1.6; }
+
+  .table-wrap { overflow-x: auto; margin: 16px 0; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 14px; min-width: 460px;
+  }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+  th { font-weight: 600; color: var(--ink-48); font-size: 13px; letter-spacing: -0.12px; white-space: nowrap; }
+  td code { white-space: nowrap; }
+
+  .callout {
+    background: var(--warn-bg); border: 1px solid var(--warn-line);
+    border-radius: 10px; padding: 14px 18px; margin: 20px 0;
+  }
+  .callout p { margin: 0; font-size: 14px; line-height: 1.6; }
+  .callout p + p { margin-top: 8px; }
+
+  blockquote {
+    margin: 20px 0; padding: 4px 0 4px 20px; border-left: 2px solid var(--hairline);
+  }
+  blockquote p { margin: 0; font-size: 14px; letter-spacing: -0.224px; color: var(--ink-80); }
+  blockquote a { color: var(--primary); }
+
+  @media (max-width: 640px) {
+    article { padding: 48px 20px 72px; }
+    h1 { font-size: 26px; }
+    .sub-nav { padding: 0 16px; }
+    .sub-nav .category { font-size: 17px; }
+  }
+  @media (max-width: 380px) {
+    .global-nav .meta { display: none; }
+  }
+</style>
+</head>
+<body>
+  <nav class="global-nav">
+    <a class="brand" href="../../index.html">AI 프로덕트 마스터</a>
+    <span class="meta">인공지능 심화(160H)</span>
+  </nav>
+  <nav class="sub-nav">
+    <a class="category" href="../index.html">이슈 로그</a>
+    <a class="btn-primary" href="../../index.html">전체 커리큘럼</a>
+  </nav>
+
+  <article>
+
+<span class="eyebrow">Node.js · 개발환경</span>
+<h1>Node.js 설치 후 PowerShell에서 npm이 실행되지 않음</h1>
+<div class="source">출처 · AI 프로덕트 마스터 (실습 환경 세팅)</div>
+
+<h2>증상</h2>
+<p>Node.js를 정상적으로 설치했는데도 PowerShell에서 <code>npm -v</code> 같은 명령을 실행하면 아래 오류가 나면서 명령이 아예 시작되지 않는다.</p>
+
+<h3>한글 Windows</h3>
+<pre><code>npm : 이 시스템에서 스크립트를 실행할 수 없으므로 C:\Program Files\nodejs\npm.ps1
+파일을 로드할 수 없습니다. 자세한 내용은 about_Execution_Policies
+(https://go.microsoft.com/fwlink/?LinkID=135170)를 참조하십시오.
+위치 줄:1 문자:1
++ npm -v
++ ~~~
+    + CategoryInfo          : 보안 오류: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess</code></pre>
+
+<h3>영문 Windows</h3>
+<pre><code>npm : File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts
+is disabled on this system. For more information, see about_Execution_Policies at
+https://go.microsoft.com/fwlink/?LinkID=135170.
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess</code></pre>
+
+<div class="callout">
+<p><strong>판별 키워드</strong> — 오류 메시지에 <code>PSSecurityException</code>과 <code>UnauthorizedAccess</code>가 함께 보이면 100% 이 문제다. 반대로 <code>EACCES</code>·<code>EPERM</code>이 보이면 파일 권한 문제이지 실행 정책 문제가 아니다.</p>
+</div>
+
+<h2>원인</h2>
+<p>PowerShell의 <strong>ExecutionPolicy(스크립트 실행 정책)</strong>에 막힌 것이다. Windows 클라이언트의 기본값은 <code>Restricted</code>로, <code>.ps1</code> 스크립트 파일 실행을 전면 차단한다. 인터넷에서 받은 악성 스크립트를 더블클릭 한 번으로 실행해버리는 사고를 막기 위한 안전장치다.</p>
+<p>문제는 <strong>Windows용 npm이 <code>npm.ps1</code>이라는 PowerShell 스크립트로 동작한다</strong>는 점이다. 그래서 Node.js 설치 자체는 성공했어도 PowerShell에서 npm을 부르는 순간 정책에 걸린다. npm의 버그가 아니라 <strong>PowerShell이 npm 실행을 거부한 것</strong>이다.</p>
+
+<h2>어떤 명령까지 막히나</h2>
+<p>npm 하나만의 문제가 아니라, PowerShell 스크립트로 감싸진 CLI 전체가 같은 오류를 낸다. 즉 개발 도구 CLI가 통째로 마비된다.</p>
+<ul>
+<li><code>npm</code>, <code>npx</code>, <code>yarn</code>, <code>pnpm</code>, <code>pnpx</code></li>
+<li>전역 설치한 도구 — <code>tsc</code>, <code>ng</code>(Angular), <code>vue</code>, <code>next</code>, <code>vite</code>, <code>nodemon</code>, <code>eslint</code> 등</li>
+<li>버전 관리 도구 — <code>nvm</code>, <code>fnm</code></li>
+<li>직접 만든 <code>.ps1</code> 스크립트, 프로젝트의 <code>setup.ps1</code></li>
+</ul>
+
+<h2>헷갈리기 쉬운 지점</h2>
+<p>아래 특징들 때문에 원인을 엉뚱한 곳에서 찾다가 시간을 많이 쓴다. 수업 중 가장 자주 나오는 오해다.</p>
+<ul>
+<li><strong><code>node -v</code>는 정상 작동한다.</strong> <code>node.exe</code>는 스크립트가 아니라 실행 파일이라 정책과 무관하다. 그래서 "Node는 깔렸는데 npm만 안 되네?" 하며 Node.js를 계속 재설치하게 된다.</li>
+<li><strong>CMD(명령 프롬프트)에서는 멀쩡하다.</strong> CMD는 <code>npm.cmd</code>를 실행하기 때문이다. VS Code 터미널이 PowerShell이면 거기서만 오류가 나고, CMD로 바꾸면 되는 이상한 상황이 생긴다.</li>
+<li><strong>관리자 권한으로 실행해도 해결되지 않는다.</strong> 권한 문제가 아니라 정책 문제다.</li>
+<li>오류 메시지 맨 앞에 <code>npm :</code>이 붙어서 npm 자체 버그처럼 보인다.</li>
+</ul>
+
+<h3>3초 자가진단</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>확인</th><th>해석</th></tr></thead>
+<tbody>
+<tr><td><code>node -v</code> 정상 + <code>npm -v</code> 오류</td><td>ExecutionPolicy 의심</td></tr>
+<tr><td>CMD에서는 되고 PowerShell에서만 오류</td><td>ExecutionPolicy 확정</td></tr>
+<tr><td>오류에 <code>UnauthorizedAccess</code> 포함</td><td>ExecutionPolicy 확정</td></tr>
+<tr><td>오류에 <code>EACCES</code> / <code>EPERM</code> 포함</td><td>다른 문제 (파일 권한)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>정책 종류</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>값</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><code>Restricted</code></td><td>스크립트 전부 차단 (Windows 클라이언트 기본값)</td></tr>
+<tr><td><code>AllSigned</code></td><td>서명된 스크립트만 허용</td></tr>
+<tr><td><code>RemoteSigned</code></td><td>로컬에서 만든 스크립트는 그대로 실행, 인터넷에서 받은 것은 서명 필요</td></tr>
+<tr><td><code>Unrestricted</code></td><td>경고만 띄우고 모두 실행</td></tr>
+<tr><td><code>Bypass</code></td><td>아무것도 막지 않음</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong><code>RemoteSigned</code>를 권장</strong>한다. npm처럼 로컬에 설치된 스크립트는 문제없이 돌아가면서, 인터넷에서 다운로드한 파일은 여전히 걸러준다. 보안을 크게 포기하지 않는 선택이다.</p>
+
+<h2>해결</h2>
+<pre><code># 1. 현재 상태 확인
+Get-ExecutionPolicy -List
+
+# 2. 현재 사용자에게만 적용 (관리자 권한 불필요, 권장)
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+
+# 3. 확인 메시지가 나오면 Y 입력
+
+# 4. 적용 확인
+npm -v</code></pre>
+<p><code>-Scope CurrentUser</code>를 붙이는 것이 핵심이다. 시스템 전체(<code>LocalMachine</code>)가 아니라 내 계정에만 적용되므로 <strong>관리자 권한 없이 실행</strong>되고, 같은 PC의 다른 사용자에게도 영향이 없다.</p>
+<p>변경 후 PowerShell 창을 새로 열어 <code>npm -v</code>로 확인한다.</p>
+
+<h2>정책을 바꿀 수 없는 경우 (회사 · 교육장 PC)</h2>
+<p>그룹 정책(GPO)으로 강제된 환경에서는 <code>Set-ExecutionPolicy</code>가 먹지 않는다. <code>Get-ExecutionPolicy -List</code>에서 <code>MachinePolicy</code>·<code>UserPolicy</code> 항목에 값이 잡혀 있으면 GPO로 강제된 상태다. 이때는 아래 우회책을 쓴다.</p>
+<ul>
+<li><strong>CMD 사용</strong> — CMD는 <code>npm.cmd</code>를 실행하므로 정책 영향을 받지 않는다. VS Code에서는 터미널 기본 프로필을 Command Prompt로 바꾸면 된다.</li>
+<li><strong>한 번만 임시로 우회</strong> — <code>powershell -ExecutionPolicy Bypass</code>로 새 셸을 띄우면 그 창에서만 정책이 풀린다. 설정을 영구히 바꾸지 않는다.</li>
+<li><strong>IT 부서에 요청</strong> — 실습 전에 <code>RemoteSigned</code> 적용을 미리 요청해 두는 것이 가장 깔끔하다.</li>
+</ul>
+
+<div class="callout">
+<p><strong>주의</strong> — 편하다는 이유로 <code>Bypass</code>나 <code>Unrestricted</code>를 시스템 전체에 적용하지 않는다. 인터넷에서 받은 <code>.ps1</code>이 확인 없이 실행되는 상태가 되어, 이 정책이 원래 막으려던 위험이 그대로 열린다.</p>
+</div>
+
+<h2>재발 방지</h2>
+<ul>
+<li>실습 환경 세팅 안내에 <strong>Node.js 설치 → <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> → <code>npm -v</code> 확인</strong>을 한 세트로 포함한다. Node.js 설치만 안내하면 PowerShell 사용자에게서 반드시 이 문제가 재현된다.</li>
+<li>PC를 새로 세팅하거나 계정을 새로 만들면 정책이 기본값(<code>Restricted</code>)으로 돌아오므로 다시 설정해야 한다.</li>
+<li>수강생 화면 공유 시 <code>node -v</code>와 <code>npm -v</code>를 함께 실행하게 하면, 이 문제인지 Node.js 설치 실패인지 즉시 구분된다.</li>
+</ul>
+
+<blockquote>
+<p>참고 · Microsoft 공식 문서 <a href="https://go.microsoft.com/fwlink/?LinkID=135170">about_Execution_Policies</a> — 오류 메시지에 표시되는 바로 그 링크입니다.</p>
+</blockquote>
+
+  </article>
+</body>
+</html>
